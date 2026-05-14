@@ -53,8 +53,9 @@ while True:
         ...
 
     display_floor()
-    screen.blit(objects.house_front,(407,270))
-    screen.blit(objects.shop_front,(431,422))
+    screen.blit(objects.house_front,(400,258))
+    screen.blit(objects.big_house_front,(422,388))
     screen.blit(objects.temple,(463,20))
+    screen.blit(objects.house_back,(300,550))
     clock.tick(120)
     pygame.display.flip()

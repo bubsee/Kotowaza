@@ -17,9 +17,21 @@ grass2_tile = pygame.transform.scale(grass2_tile, (tile_width,tile_width))
 path_tile = tile_sheet.subsurface((0, 100, 2*tile_zoom, 2*tile_zoom))
 path_tile = pygame.transform.scale(path_tile, (tile_width, tile_width))
 
-#objects
-house_front = load('img/japanese_house_front.png',(80,90))
-shop_front = load('img/japanese_shop_front.png',(80,90))
+#---------------------------------BUILDINGS-------------------------------------
+buildings_sheet = pygame.image.load('img/house_sheet.png')
+
+house_front = buildings_sheet.subsurface(0,0, 100, 98)
+house_front = pygame.transform.scale(house_front, (90,100))
+
+house_back = buildings_sheet.subsurface(120,0, 100, 100)
+house_back = pygame.transform.scale(house_back, (90,110))
+
+big_house_front = buildings_sheet.subsurface(0,105, 100, 120)
+big_house_back = pygame.transform.scale(house_front, (90,110))
+'''
+big_house_front = buildings_sheet.subsurface(0,0, 50, 50)
+big_house_back = pygame.transform.scale(house_front, (80,90))'''
+
 temple = load('img/temple_3.png',(250,250))
 
 #-----------------------------------SPRITE--------------------------------------
