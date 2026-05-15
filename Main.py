@@ -10,13 +10,15 @@ def display_floor():
     y = 0
     for row in map.grid:
         for item in row:
-            if item == 1:
+            if item == 0:
                 if map.randomlist[int(y/tile_width)][int(x/tile_width)] == 0:
-                    screen.blit(objects.grass1_tile,(x,y))
+                    screen.blit(objects.grass2_tile,(x,y))
                 else:
-                    screen.blit(objects.grass2_tile, (x,y))
-            elif item == 0:
+                    screen.blit(objects.grass1_tile, (x,y))
+            elif item == 1:
                 screen.blit(objects.path_tile, (x,y))
+            elif item == 2:
+                screen.blit(objects.lake_tile, (x,y))
             x += tile_width
         x = 0
         y += tile_width
@@ -53,9 +55,6 @@ while True:
         ...
 
     display_floor()
-    screen.blit(objects.house_front,(400,258))
-    screen.blit(objects.big_house_front,(422,388))
-    screen.blit(objects.temple,(463,20))
-    screen.blit(objects.house_back,(300,550))
+    #screen.blit(objects.main_palace,(400,258))
     clock.tick(120)
     pygame.display.flip()
