@@ -3,6 +3,7 @@ import sys
 import map
 import objects
 import sprite
+import hitboxes
 
 #-----------sprite-------------
 #frame counting
@@ -100,7 +101,6 @@ while True:
     screen.blit(objects.sakura, (432, 190))
     screen.blit(objects.sakura, (432, 240))
     screen.blit(objects.pond, (591,360))    #pond
-    screen.blit(objects.gate,(72,280))  #gate
     screen.blit(objects.tree, (854, 245))   #left side trees
     screen.blit(objects.tree, (854, 275))
     screen.blit(objects.tree, (854, 305))
@@ -141,13 +141,9 @@ while True:
     screen.blit(objects.bridge_floor,(260,370)) #bridge
     screen.blit(objects.bridge_floor, (293, 370))
     screen.blit(objects.bridge_floor, (326, 370))
-    screen.blit(objects.bridge_railing,(260,355))
-    screen.blit(objects.side_hedge,(985,195))   #hedges
-    screen.blit(objects.single_hedge, (945, 145))
+    screen.blit(objects.top_bridge_railing,(260,345))
+    screen.blit(objects.single_hedge, (945, 145)) #hedges
     screen.blit(objects.single_hedge, (1220, 195))
-    screen.blit(objects.side_hedge, (1101,195))
-    screen.blit(objects.side_hedge, (1141, 195))
-    screen.blit(objects.side_hedge, (1181, 195))
     screen.blit(objects.up_hedge, (1002, 212))
     screen.blit(objects.up_hedge, (1002, 247))
     screen.blit(objects.up_hedge, (1002, 282))
@@ -158,7 +154,6 @@ while True:
     screen.blit(objects.up_hedge, (1100, 317))
     screen.blit(objects.up_hedge, (1220, 160))
     screen.blit(objects.up_hedge, (945, 160))
-    screen.blit(objects.side_hedge, (945, 195))
     screen.blit(objects.single_hedge, (1220, 195))
     screen.blit(objects.single_hedge, (1002, 352))
     screen.blit(objects.single_hedge, (1100, 352))
@@ -207,6 +202,15 @@ while True:
 
     screen.blit(current_image, (player_x, player_y))
 
+    #details to go OVER the sprite
+    screen.blit(objects.gate, (72, 280))  # gate
+    screen.blit(objects.bottom_bridge_railing, (260, 391))
+    screen.blit(objects.side_hedge, (985, 195))
+    screen.blit(objects.side_hedge, (1101, 195))
+    screen.blit(objects.side_hedge, (1141, 195))
+    screen.blit(objects.side_hedge, (1181, 195))
+    screen.blit(objects.side_hedge, (945, 195))
+
 
     #frame (for animations) incrementation
     frame_counter += 1
@@ -217,6 +221,9 @@ while True:
 
         frame = frame % 4
 
+    #hitboxes
+    if hitboxes.showing == True:
+        hitboxes.draw(screen)
 
     clock.tick(120)
     pygame.display.flip()
