@@ -1,7 +1,7 @@
 import pygame
 import random
 
-grid = [
+displayed_grid = [
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -32,6 +32,16 @@ grid = [
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 ]
 
+walkable_grid = []
+'''for row in displayed_grid:
+    for i in range(2):
+        array = []
+        for item in row:
+            for i in range(2):
+                array.append(item)
+
+        #print(array)
+        displayed_grid.append(array)'''
 
 #random list to determine type of grass
 randomlist = [[random.randint(0, 3) for _ in range(50)] for _ in range(28)]
