@@ -1,6 +1,6 @@
 import pygame
 import objects
-showing = False
+showing = True
 
 #fucntion to add in details hitboxes
 def add(x, y, object):
@@ -25,7 +25,10 @@ walls = [
     pygame.Rect(960,41,70,120),  # left_house
     pygame.Rect(1040,62,100,100),  # middle_house
     pygame.Rect(1150,63,90,100),  # right_house
-    pygame.Rect(591,363,68,64)  # pond
+    #pool
+    pygame.Rect(600, 366, 50, 58),  # vertical
+    pygame.Rect(594, 376, 62, 40),  # horizontal
+    #pygame.Rect(601, 368, 44, 54),  # middle fill
 ]
 
 

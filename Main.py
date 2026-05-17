@@ -21,7 +21,7 @@ idling = True
 def display_floor():
     x = 0
     y = 0
-    for row in map.displayed_grid:
+    for row in map.grid:
         for item in row:
             if item == 0:
                 if map.randomlist[int(y/objects.tile_width)][int(x/objects.tile_width)] == 0:
