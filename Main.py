@@ -12,7 +12,7 @@ frame_counter = 0  #for the delay
 #set direction
 direction = 'down'
 #starting coords
-player_x,player_y = (838,585)
+player_x,player_y = (838,600) #585
 #speed of movement
 speed = 3
 #whether idling or not
@@ -56,24 +56,29 @@ while True:
             sys.exit()
 
     keys = pygame.key.get_pressed()
+    sprite_hitbox = pygame.Rect(player_x-1, player_y+34, sprite.sprite_size_x, 8)
 
     #key binding for movement of sprite and map movement
     if keys[pygame.K_LEFT] or keys[pygame.K_a]:
         direction = "left"
-        player_x -= speed
-        idling = False
+        if hitboxes.movement_allowed(sprite_hitbox, player_x - speed , player_y):
+            player_x -= speed
+            idling = False
     elif keys[pygame.K_RIGHT] or keys[pygame.K_d]:
         direction = "right"
-        player_x += speed
-        idling = False
+        if hitboxes.movement_allowed(sprite_hitbox, player_x + speed , player_y):
+            player_x += speed
+            idling = False
     elif keys[pygame.K_UP] or keys[pygame.K_w]:
         direction = "up"
-        player_y -= speed
-        idling = False
+        if hitboxes.movement_allowed(sprite_hitbox, player_x  , player_y - speed):
+            player_y -= speed
+            idling = False
     elif keys[pygame.K_DOWN] or keys[pygame.K_s]:
         direction = "down"
-        player_y += speed
-        idling = False
+        if hitboxes.movement_allowed(sprite_hitbox, player_x , player_y + speed):
+            player_y += speed
+            idling = False
     else:
         idling = True
 
@@ -224,6 +229,7 @@ while True:
     #hitboxes
     if hitboxes.showing == True:
         hitboxes.draw(screen)
+        pygame.draw.rect(screen, (255, 0, 0), sprite_hitbox, 2)
 
     clock.tick(120)
     pygame.display.flip()

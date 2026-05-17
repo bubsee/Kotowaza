@@ -1,6 +1,6 @@
 import pygame
 import objects
-showing = True
+showing = False
 
 #fucntion to add in details hitboxes
 def add(x, y, object):
@@ -20,8 +20,8 @@ walls = [
     pygame.Rect(870,435,81,180),
     pygame.Rect(1100,375,150,102),  # dojo
     pygame.Rect(864,120,70,149),  # bell tower
-    pygame.Rect(864,120,24,160),
-    pygame.Rect(912,120,24,160),
+    pygame.Rect(864,120,20,160),
+    pygame.Rect(916,120,20,160),
     pygame.Rect(960,41,70,120),  # left_house
     pygame.Rect(1040,62,100,100),  # middle_house
     pygame.Rect(1150,63,90,100),  # right_house
@@ -41,3 +41,13 @@ add(174,200,objects.right_flag) #right flag
 def draw(screen):
     for wall in walls:
         pygame.draw.rect(screen, (255, 0, 0), wall, 2)
+
+def movement_allowed(hitbox, new_x, new_y):
+    future_hitbox = pygame.Rect(new_x-1, new_y+34, hitbox.width, hitbox.height)
+    for wall in walls:
+        if future_hitbox.colliderect(wall):
+            return False
+    return True
+
+
+    return True
