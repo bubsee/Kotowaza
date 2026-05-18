@@ -12,7 +12,7 @@ frame_counter = 0  #for the delay
 #set direction
 direction = 'down'
 #starting coords
-player_x,player_y = (838,600) #585
+player_x,player_y = (838,585)
 #speed of movement
 speed = 3
 #whether idling or not
@@ -56,7 +56,7 @@ while True:
             sys.exit()
 
     keys = pygame.key.get_pressed()
-    sprite_hitbox = pygame.Rect(player_x-1, player_y+34, sprite.sprite_size_x, 8)
+    sprite_hitbox = pygame.Rect(player_x+1, player_y+34, sprite.sprite_size_x-2, 8)
 
     #key binding for movement of sprite and map movement
     if keys[pygame.K_LEFT] or keys[pygame.K_a]:
@@ -97,6 +97,9 @@ while True:
     screen.blit(objects.dojo,(1100,375))
 
     #----------------DETAILS-------------------
+    screen.blit(objects.lake_tile, (275, 400))
+    screen.blit(objects.lake_tile, (300, 400))
+    screen.blit(objects.lake_tile, (315, 400))
     screen.blit(objects.sakura,(775,90))    #right side sakura
     screen.blit(objects.sakura, (775, 140))
     screen.blit(objects.sakura, (775, 190))
