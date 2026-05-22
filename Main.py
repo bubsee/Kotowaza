@@ -2,8 +2,10 @@ import pygame
 import sys
 import map
 import objects
-import sprite
+import sprites
 import hitboxes
+import entries
+import NPCs
 
 #-----------sprite-------------
 #frame counting
@@ -37,7 +39,8 @@ def display_floor():
         y += objects.tile_width
 
 pygame.init()
-pygame.display.set_caption('Kotozawa  |  ことわざ')
+pygame.display.set_caption('Kotozawa')
+pygame.display.set_icon(objects.icon)
 screen = pygame.display.set_mode((1250, 700), pygame.RESIZABLE)
 clock = pygame.time.Clock()
 
@@ -56,7 +59,7 @@ while True:
             sys.exit()
 
     keys = pygame.key.get_pressed()
-    sprite_hitbox = pygame.Rect(player_x+1, player_y+34, sprite.sprite_size_x-2, 8)
+    sprite_hitbox = pygame.Rect(player_x+1, player_y+34, sprites.sprite_size_x-2, 8)
 
     #key binding for movement of sprite and map movement
     if keys[pygame.K_LEFT] or keys[pygame.K_a]:
@@ -191,24 +194,27 @@ while True:
     #blitting the sprite
     if not idling:
         if direction == "left":
-            current_image = sprite.left_run[frame]
+            current_image = sprites.left_run[frame]
         elif direction == "right":
-            current_image = sprite.right_run[frame]
+            current_image = sprites.right_run[frame]
         elif direction == "up":
-            current_image = sprite.up_run[frame]
+            current_image = sprites.up_run[frame]
         elif direction == "down":
-            current_image = sprite.down_run[frame]
+            current_image = sprites.down_run[frame]
     else:
         if direction == "left":
-            current_image = sprite.left_idle[frame]
+            current_image = sprites.left_idle[frame]
         elif direction == "right":
-            current_image = sprite.right_idle[frame]
+            current_image = sprites.right_idle[frame]
         elif direction == "up":
-            current_image = sprite.up_idle[frame]
+            current_image = sprites.up_idle[frame]
         elif direction == "down":
-            current_image = sprite.down_idle[frame]
+            current_image = sprites.down_idle[frame]
 
     screen.blit(current_image, (player_x, player_y))
+    #print(player_x, player_y)  # debugging coords
+    print(entries.check_entry(player_x, player_y))  # debugging entries of buildings
+    NPCs.show_positions(screen,frame)   #debugging villager idling
 
     #details to go OVER the sprite
     screen.blit(objects.gate, (72, 280))  # gate
@@ -223,7 +229,7 @@ while True:
     #frame (for animations) incrementation
     frame_counter += 1
 
-    if frame_counter >= sprite.frame_delay:
+    if frame_counter >= sprites.frame_delay:
         frame += 1
         frame_counter = 0
 
