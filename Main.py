@@ -44,6 +44,9 @@ pygame.display.set_icon(objects.icon)
 screen = pygame.display.set_mode((1250, 700), pygame.RESIZABLE)
 clock = pygame.time.Clock()
 
+print(entries.building_entries['bell tower'])
+#NPCs.Arthur.show_path(screen)    #debugging villagers pathfinder
+
 #event loop
 while True:
 
@@ -213,8 +216,8 @@ while True:
 
     screen.blit(current_image, (player_x, player_y))
     #print(player_x, player_y)  # debugging coords
-    print(entries.check_entry(player_x, player_y))  # debugging entries of buildings
-    NPCs.show_positions(screen,frame)   #debugging villager idling
+    #print(entries.check_entry(player_x, player_y))  # debugging entries of buildings
+    #NPCs.show_positions(screen,frame)   #debugging villager idling positions
 
     #details to go OVER the sprite
     screen.blit(objects.gate, (72, 280))  # gate
