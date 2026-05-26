@@ -3,9 +3,13 @@ import map
 import sprites
 import random
 import entries
+import hitboxes
+
+villager_speed = 3
+
 
 def nearest_path_tile(px, py):
-    col, row = px // 25, py // 25
+    col, row = (px + 12) // 25, (py + 12) // 25
     for dc, dr in [(0,0),(1,0),(-1,0),(0,1),(0,-1)]:
         nc, nr = col+dc, row+dr
         if map.grid[nr][nc] == 1:
@@ -27,7 +31,8 @@ def BFS(start_coords: tuple, end_coords: tuple):
             # trace back through came_from to build the path
             path = []
             while came_from[inspect] != None:
-                path.append(came_from[inspect])
+                addition = came_from[inspect][0] * 25 +13, came_from[inspect][1] * 25 +13
+                path.append(addition)
                 inspect = came_from[inspect]
             return path
 
@@ -39,6 +44,9 @@ def BFS(start_coords: tuple, end_coords: tuple):
         for tile in local_tiles:
             if map.grid[tile[1]][tile[0]] != 1 or tile in came_from:
                 continue
+            tile_rect = pygame.Rect(tile[0] * 25 + 1, tile[1] * 25 + 1, 23, 23)
+            if any(tile_rect.colliderect(wall) for wall in hitboxes.walls):
+                continue
             came_from[tile] = inspect
             queue.append(tile)
 
@@ -48,30 +56,66 @@ def BFS(start_coords: tuple, end_coords: tuple):
 
 class Villager:
     def __init__(self, start_building: str):
+        self.start_building = start_building
         self.x, self.y = entries.building_entries[start_building]     #fetch the coordinates of th start buidings door
         self.end_point = random.choice(stop_spots)    #choose random stop spot
 
-        self.route = BFS((self.x, self.y), self.end_point[0])
+        #print(map.grid[self.y // 25][self.x // 25])  #debugging start position
+        self.route = BFS((self.x, self.y), self.end_point[0])    #find the applicable path
+        self.arrived = False
+        self.at_home = True
 
-    def walk_to_destination(self, screen):
-        #screen.blit(screen, self,(self.x,self.y))
-        ...
+    def walk_to_destination(self, screen, current_image):
+        if self.route != []:
+            target = self.route[-1]
+            relative_positon = target[0] - self.x, target[1] - self.y
 
-    def show_path(self, screen):      # for debugging
-        print(self.end_point)
+            # snap to node on path when close enough (may look weird)
+            if self.x > target[0] - villager_speed and self.x < target[0] + villager_speed and self.y > target[1] - villager_speed and self.y < target[1] + villager_speed:
+                self.x = target[0]
+                self.y = target[1]
+                self.route.remove(self.route[-1])
+
+            # adjust x coord
+            elif relative_positon[0] > 0:
+                self.x += villager_speed
+            elif relative_positon[0] < 0:
+                self.x -= villager_speed
+
+            # adjust y coord
+            if relative_positon[1] > 0:
+                self.y += villager_speed
+            elif relative_positon[1] < 0:
+                self.y -= villager_speed
+
+        pygame.draw.rect(screen, (255, 255, 0), (self.x, self.y, 10, 10))
+        #screen.blit(screen, current_image,(self.x, self.y))
+        if self.route == []:
+            self.arrived = False
+
+    def reset_route(self, screen):
+        self.end_point = entries.building_entries[self.start_building][0] + 25, entries.building_entries[self.start_building][1] + 50
+        self.route = BFS((self.x, self.y), self.end_point)
+        print(self.x, self.y, self.end_point)
+        pygame.draw.circle(screen, (0,0,255), (self.x, self.y), 10)
+        pygame.draw.circle(screen, (0,0,255), (self.end_point[0],self.end_point[1]), 10)
+
+
+    def show_path(self):      # for debugging
+        print(f'route: {self.start_building} -> {self.end_point[2]}')
         print(self.route)
 
 
 stop_spots = [  #format: [coords, direction]
-    [(286,345),'up'],# on the bridge
-    [(103,309),'down'],# under the gate
-    [(568,369),'right'],# by the pond
-    [(877,252),'down'],# by the bell tower
-    [(271,573),'up'],# by the fish box
-    [(364,582),'down'],# by the fish shop
-    [(433,594),'up'],# by the main shop
-    [(1123,444),'down'],# by the dojo
-    [(625,576),'right']# by the tree
+    [(286,345),'up', 'bridge'],# on the bridge
+    [(103,309),'down', 'gate'],# under the gate
+    #[(568,369),'right', 'pond'],# by the pond
+    #[(877,252),'down', 'bell tower'],# by the bell tower
+    #[(271,573),'up', 'fish box'],# by the fish box
+    #[(364,582),'down', 'fish shop'],# by the fish shop
+    #[(433,594),'up', 'main shop'],# by the main shop
+    #[(1123,444),'down', 'dojo'],# by the dojo
+    [(625,576),'right', 'tree']# by the tree
 ]
 
 def show_positions(screen, frame):

@@ -6,6 +6,7 @@ import sprites
 import hitboxes
 import entries
 import NPCs
+import time
 
 #-----------sprite-------------
 #frame counting
@@ -19,6 +20,7 @@ player_x,player_y = (838,585)
 speed = 3
 #whether idling or not
 idling = True
+ticker = 0
 
 def display_floor():
     x = 0
@@ -43,9 +45,6 @@ pygame.display.set_caption('Kotozawa')
 pygame.display.set_icon(objects.icon)
 screen = pygame.display.set_mode((1250, 700), pygame.RESIZABLE)
 clock = pygame.time.Clock()
-
-print(entries.building_entries['bell tower'])
-#NPCs.Arthur.show_path(screen)    #debugging villagers pathfinder
 
 #event loop
 while True:
@@ -90,13 +89,16 @@ while True:
 
     display_floor()
 
+    for tile in NPCs.Arthur.route:
+        pygame.draw.circle(screen, (255, 0, 0), tile, 5)
+
     #---------------BUILDINGS------------------
     screen.blit(objects.big_house,(750,435))
     screen.blit(objects.main_palace,(474,0))
     screen.blit(objects.food_shop,(328,530))
     screen.blit(objects.shop, (418, 531))
     screen.blit(objects.tall_palace,(46,0))
-    screen.blit(objects.tall_building,(864,120))
+    #screen.blit(objects.tall_building,(864,120))
     screen.blit(objects.wide_house,(1040,62))
     screen.blit(objects.tall_house,(960,43))
     screen.blit(objects.regular_house,(1150,63))
@@ -215,9 +217,17 @@ while True:
             current_image = sprites.down_idle[frame]
 
     screen.blit(current_image, (player_x, player_y))
-    #print(player_x, player_y)  # debugging coords
+    #print(player_x, player_y)  # debugging player coords
     #print(entries.check_entry(player_x, player_y))  # debugging entries of buildings
     #NPCs.show_positions(screen,frame)   #debugging villager idling positions
+    #print(NPCs.Arthur.end_point)     #debug NPCs endpoint
+    #print(NPCs.Arthur.route)
+    if NPCs.Arthur.route == []:
+        NPCs.Arthur.reset_route(screen)
+    else:
+        NPCs.Arthur.walk_to_destination(screen, current_image)
+
+
 
     #details to go OVER the sprite
     screen.blit(objects.gate, (72, 280))  # gate
@@ -237,6 +247,9 @@ while True:
         frame_counter = 0
 
         frame = frame % 4
+
+    # ticker incrementation
+    ticker += 1
 
     #hitboxes
     if hitboxes.showing == True:
