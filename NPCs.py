@@ -5,7 +5,7 @@ import random
 import entries
 import hitboxes
 
-villager_speed = 3
+villager_speed = 1
 
 
 def nearest_path_tile(px, py):
@@ -61,9 +61,13 @@ class Villager:
         self.end_point = random.choice(stop_spots)    #choose random stop spot
 
         #print(map.grid[self.y // 25][self.x // 25])  #debugging start position
-        self.route = BFS((self.x, self.y), self.end_point[0])    #find the applicable path
-        self.arrived = False
         self.at_home = True
+
+    def find_route(self):
+        self.end_point = random.choice(stop_spots)
+
+        self.route = BFS((self.x, self.y), self.end_point[0])  # find the applicable path
+        self.arrived = False
 
     def walk_to_destination(self, screen, current_image):
         if self.route != []:
@@ -91,14 +95,14 @@ class Villager:
         pygame.draw.rect(screen, (255, 255, 0), (self.x, self.y, 10, 10))
         #screen.blit(screen, current_image,(self.x, self.y))
         if self.route == []:
-            self.arrived = False
+            self.arrived = True
 
-    def reset_route(self, screen):
+    '''def reset_route(self, screen):
         self.end_point = entries.building_entries[self.start_building][0] + 25, entries.building_entries[self.start_building][1] + 50
         self.route = BFS((self.x, self.y), self.end_point)
         print(self.x, self.y, self.end_point)
         pygame.draw.circle(screen, (0,0,255), (self.x, self.y), 10)
-        pygame.draw.circle(screen, (0,0,255), (self.end_point[0],self.end_point[1]), 10)
+        pygame.draw.circle(screen, (0,0,255), (self.end_point[0],self.end_point[1]), 10)'''
 
 
     def show_path(self):      # for debugging
@@ -134,3 +138,5 @@ def show_positions(screen, frame):
 
 #villager instantiations
 Arthur = Villager('bell tower')
+Arthur.find_route()
+Rowan = Villager('dojo')
