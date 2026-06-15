@@ -1,3 +1,15 @@
+#TODO: TIDY UP!!!!!!!!!!
+'''
+make dictionaries for village objects
+make function for objects
+take more out of main generally!
+
+
+'''
+
+
+
+
 # TODO: Fix backwards pathfinding of villagers
 # TODO: Fix all villager idling points
 # TODO: Create the notebook {tab}
