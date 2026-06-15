@@ -7,6 +7,7 @@ import hitboxes
 import entries
 import NPCs
 import time
+import Notebook
 
 #-----------sprite-------------
 #frame counting
@@ -51,6 +52,9 @@ while True:
 
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
+            #bind tab to notebook open
+            if event.key == pygame.K_TAB:
+                Notebook.run_notebook_screen(screen)
             #bind escape to close
             if event.key == pygame.K_ESCAPE:
                 pygame.quit()
@@ -98,7 +102,7 @@ while True:
     screen.blit(objects.food_shop,(328,530))
     screen.blit(objects.shop, (418, 531))
     screen.blit(objects.tall_palace,(46,0))
-    #screen.blit(objects.tall_building,(864,120))
+    screen.blit(objects.tall_building,(864,120))
     screen.blit(objects.wide_house,(1040,62))
     screen.blit(objects.tall_house,(960,43))
     screen.blit(objects.regular_house,(1150,63))
@@ -219,7 +223,7 @@ while True:
     screen.blit(current_image, (player_x, player_y))
     #print(player_x, player_y)  # debugging player coords
     #print(entries.check_entry(player_x, player_y))  # debugging entries of buildings
-    #NPCs.show_positions(screen,frame)   #debugging villager idling positions
+    NPCs.show_positions(screen,frame)   #debugging villager idling positions
     #print(NPCs.Arthur.end_point)     #debug NPCs endpoint
     #print(NPCs.Arthur.route)
     if NPCs.Arthur.route == []:
