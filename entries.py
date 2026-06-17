@@ -4,8 +4,10 @@ building_entries = {
     'food shop': (337,576),
     'shop': (469,573),
     'tall palace': (124,204),
-    'bell tower': (886,243),
-    'dojo': (1162,444)}
+    'bell tower': (885,265),
+    'dojo': (1162,455),
+    'tall house': (980,140),
+    'big house': (1078,138)}
 
 def check_entry(player_x, player_y):
     for building in building_entries:

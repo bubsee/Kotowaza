@@ -6,7 +6,7 @@ import entries
 import hitboxes
 
 villager_speed = 1
-
+villagers = []
 
 def nearest_path_tile(px, py):
     col, row = (px + 12) // 25, (py + 12) // 25
@@ -57,20 +57,40 @@ def BFS(start_coords: tuple, end_coords: tuple):
 class Villager:
     def __init__(self, start_building: str):
         self.start_building = start_building
-        self.x, self.y = entries.building_entries[start_building]     #fetch the coordinates of th start buidings door
+        self.x, self.y = entries.building_entries[start_building]     #fetch the coordinates of the start buiding's door
         self.end_point = random.choice(stop_spots)    #choose random stop spot
 
         #print(map.grid[self.y // 25][self.x // 25])  #debugging start position
         self.at_home = True
+        self.arrived = False
+        self.is_tapping_foot = False
+        self.wait_timer = None
+        self.wait_length = 200
+
+        self.find_route()
+
+        villagers.append(self)
 
     def find_route(self):
-        self.end_point = random.choice(stop_spots)
+        if self.arrived:
+            x = self.end_point
+            self.end_point = random.choice(stop_spots)
+            stop_spots.append(x)
+        else:
+            self.end_point = random.choice(stop_spots)
+        stop_spots.remove(self.end_point)
 
         self.route = BFS((self.x, self.y), self.end_point[0])  # find the applicable path
         self.arrived = False
 
     def walk_to_destination(self, screen, current_image):
-        if self.route != []:
+        if self.is_tapping_foot:
+          self.wait_timer += 1
+          if self.wait_timer > self.wait_length:
+              self.wait_timer = None
+              self.is_tapping_foot = False
+
+        elif self.route != []:
             target = self.route[-1]
             relative_positon = target[0] - self.x, target[1] - self.y
 
@@ -96,14 +116,8 @@ class Villager:
         #screen.blit(screen, current_image,(self.x, self.y))
         if self.route == []:
             self.arrived = True
-
-    '''def reset_route(self, screen):
-        self.end_point = entries.building_entries[self.start_building][0] + 25, entries.building_entries[self.start_building][1] + 50
-        self.route = BFS((self.x, self.y), self.end_point)
-        print(self.x, self.y, self.end_point)
-        pygame.draw.circle(screen, (0,0,255), (self.x, self.y), 10)
-        pygame.draw.circle(screen, (0,0,255), (self.end_point[0],self.end_point[1]), 10)'''
-
+            self.wait_timer = 0
+            self.is_tapping_foot = True
 
     def show_path(self):      # for debugging
         print(f'route: {self.start_building} -> {self.end_point[2]}')
@@ -113,11 +127,11 @@ class Villager:
 stop_spots = [  #format: [coords, direction]
     [(286,345),'up', 'bridge'],# on the bridge
     [(103,309),'down', 'gate'],# under the gate
-    #[(568,369),'right', 'pond'],# by the pond
-    #[(877,252),'down', 'bell tower'],# by the bell tower
-    #[(271,573),'up', 'fish box'],# by the fish box
+    [(560,369),'right', 'pond'],# by the pond
+    [(885,300),'down', 'bell tower'],# by the bell tower
+    #[(283,594),'up', 'fish box'],# by the fish box
     #[(364,582),'down', 'fish shop'],# by the fish shop
-    #[(433,594),'up', 'main shop'],# by the main shop
+    #[(481,591),'up', 'main shop'],# by the main shop
     #[(1123,444),'down', 'dojo'],# by the dojo
     [(625,576),'right', 'tree']# by the tree
 ]
@@ -135,8 +149,17 @@ def show_positions(screen, frame):
             
         screen.blit(current_image, (item[0][0], item[0][1]))
 
+def update(screen, current_image):
+    for character in villagers:
+        if character.route == []:
+            character.find_route()
+        else:
+            character.walk_to_destination(screen, current_image)
+
 
 #villager instantiations
 Arthur = Villager('bell tower')
-Arthur.find_route()
-Rowan = Villager('dojo')
+Dean = Villager('dojo')
+James = Villager('tall palace')
+Rowan = Villager('tall house')
+#Matti = Villager('big house')

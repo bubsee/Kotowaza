@@ -1,6 +1,5 @@
 #TODO: TIDY UP!!!!!!!!!!
 '''
-make dictionaries for village objects
 make function for objects
 take more out of main generally!
 
