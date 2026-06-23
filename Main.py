@@ -17,7 +17,8 @@ frame_counter = 0  #for the delay
 #set direction
 direction = 'down'
 #starting coords
-player_x,player_y = (838,585)
+player_x,player_y = 838,585
+#player_x, player_y = 980,140
 #speed of movement
 speed = 3
 #whether idling or not
@@ -94,8 +95,8 @@ while True:
 
     display_floor()
 
-    for tile in NPCs.Arthur.route:
-        pygame.draw.circle(screen, (255, 0, 0), tile, 5)
+    '''for tile in NPCs.Arthur.route:
+        pygame.draw.circle(screen, (255, 0, 0), tile, 5)'''  # debug route being followed by Villager: Arthur
 
     village_objects.show_everything_under_sprite(screen)
 
@@ -121,21 +122,13 @@ while True:
 
     screen.blit(current_image, (player_x, player_y))
 
-    #print(player_x, player_y)  # debugging player coords
+    print(player_x, player_y)  # debugging player coords
     #print(entries.check_entry(player_x, player_y))  # debugging entries of buildings
     #NPCs.show_positions(screen,frame)   #debugging villager idling positions
     #print(NPCs.Arthur.end_point)     #debug NPCs endpoint
     #print(NPCs.Arthur.route)
 
-    if NPCs.Arthur.route == []:
-        NPCs.Arthur.find_route()
-    else:
-        NPCs.Arthur.walk_to_destination(screen, current_image)
-
-    '''if NPCs.Rowan.route == []:
-        NPCs.Rowan.reset_route(screen)
-    else:
-        NPCs.Rowan.walk_to_destination(screen, current_image)'''
+    NPCs.update(screen, current_image)
 
 
 
