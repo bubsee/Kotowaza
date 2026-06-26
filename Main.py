@@ -24,8 +24,9 @@ speed = 3
 #whether idling or not
 idling = True
 ticker = 0
+notebook_open = False
 
-def display_floor():
+def display_floor(screen):
     x = 0
     y = 0
     for row in map.grid:
@@ -47,6 +48,9 @@ pygame.init()
 pygame.display.set_caption('Kotozawa')
 pygame.display.set_icon(objects.icon)
 screen = pygame.display.set_mode((1250, 700), pygame.RESIZABLE)
+
+background_surface = pygame.Surface(screen.get_size())
+
 clock = pygame.time.Clock()
 
 #event loop
@@ -56,7 +60,7 @@ while True:
         if event.type == pygame.KEYDOWN:
             #bind tab to notebook open
             if event.key == pygame.K_TAB:
-                Notebook.run_notebook_screen(screen)
+                notebook_open = False
             #bind escape to close
             if event.key == pygame.K_ESCAPE:
                 pygame.quit()
@@ -93,12 +97,12 @@ while True:
     else:
         idling = True
 
-    display_floor()
+    display_floor(background_surface)
 
     '''for tile in NPCs.Arthur.route:
         pygame.draw.circle(screen, (255, 0, 0), tile, 5)'''  # debug route being followed by Villager: Arthur
 
-    village_objects.show_everything_under_sprite(screen)
+    village_objects.show_everything_under_sprite(background_surface)
 
     #blitting the sprite
     if not idling:
@@ -120,21 +124,26 @@ while True:
         elif direction == "down":
             current_image = sprites.down_idle[frame]
 
-    screen.blit(current_image, (player_x, player_y))
+    background_surface.blit(current_image, (player_x, player_y))
 
-    print(player_x, player_y)  # debugging player coords
+    #print(player_x, player_y)  # debugging player coords
     #print(entries.check_entry(player_x, player_y))  # debugging entries of buildings
     #NPCs.show_positions(screen,frame)   #debugging villager idling positions
     #print(NPCs.Arthur.end_point)     #debug NPCs endpoint
     #print(NPCs.Arthur.route)
 
-    NPCs.update(screen, current_image)
+    NPCs.update(background_surface, current_image)
 
 
 
     #details to go OVER the sprite
-    village_objects.show_everything_over_sprite(screen)
+    village_objects.show_everything_over_sprite(background_surface)
 
+    screen.blit(background_surface, (0, 0))
+
+    screenshot = screen.copy()
+    Notebook.run_notebook_screen(screen, notebook_open, screenshot)
+    book_open = False
 
     #frame (for animations) incrementation
     frame_counter += 1
@@ -149,7 +158,7 @@ while True:
     ticker += 1
 
     #hitboxes
-    if hitboxes.showing == True:
+    if hitboxes.showing:
         hitboxes.draw(screen)
         pygame.draw.rect(screen, (255, 0, 0), sprite_hitbox, 2)
 
