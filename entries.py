@@ -7,7 +7,8 @@ building_entries = {
     'bell tower': (885,295),
     'dojo': (1162,485),
     'tall house': (980,170),
-    'big house': (1078,138)}
+    'big house': (1078,138),
+    'square house':(1180,132)}
 
 def check_entry(player_x, player_y):
     for building in building_entries:

@@ -76,7 +76,7 @@ class Villager:
         self.arrived = False
         self.is_tapping_foot = False
         self.wait_timer = None
-        self.wait_length = 200
+        self.wait_length = 600
 
         self.make_sheets()
         self.route = BFS((self.x, self.y), self.end_point[0])
@@ -149,13 +149,17 @@ class Villager:
 
     def choose_image(self):
         if self.is_tapping_foot:        #if idle
-            if self.direction == 'up':
+            if self.end_point[1] == 'up':
+                self.direction = 'up'
                 self.current_image = self.up_idle[self.frame]
-            elif self.direction == 'down':
+            elif self.end_point[1] == 'down':
+                self.direction = 'down'
                 self.current_image = self.down_idle[self.frame]
-            elif self.direction == 'left':
+            elif self.end_point[1] == 'left':
+                self.direction = 'left'
                 self.current_image = self.left_idle[self.frame]
-            elif self.direction == 'right':
+            elif self.end_point[1] == 'right':
+                self.direction = 'right'
                 self.current_image = self.right_idle[self.frame]
 
         else:                           #if walking
@@ -167,6 +171,7 @@ class Villager:
                 self.current_image = self.left_run[self.frame]
             elif self.direction == 'right':
                 self.current_image = self.right_run[self.frame]
+
 
 
     def make_sheets(self):
@@ -181,34 +186,17 @@ class Villager:
         self.right_idle = sprites.take_row(3, 'idle', (316, 643))
 
 
-'''def snap(x, y):
-    col, row = (x + 12) // 25, (y + 12) // 25
-    return (col * 25 + 13, row * 25 + 13)
-
-stop_spots = [  #format: [coords, direction, name]
-    [snap(286,345),'up', 'bridge'],# on the bridge
-    [snap(103,309),'down', 'gate'],# under the gate
-    [snap(560,369),'right', 'pond'],# by the pond
-    [snap(885,300),'down', 'bell tower'],# by the bell tower
-    [snap(283,594),'up', 'fish box'],# by the fish box
-    #[snap(364,582),'down', 'fish shop'],# by the fish shop        PROBELM
-    [snap(481,591),'up', 'main shop'],# by the main shop
-    #[snap(1123,444),'down', 'dojo'],# by the dojo                  PROBELM
-    [snap(625,576),'right', 'tree']# by the tree
-    ]'''
-
-
 stop_spots = [  #format: [coords, direction]
-    #[(286,345),'up', 'bridge'],# on the bridge
-    #[(103,309),'down', 'gate'],# under the gate
-    #[(560,369),'right', 'pond'],# by the pond
+    [(286,345),'up', 'bridge'],# on the bridge
+    [(103,309),'down', 'gate'],# under the gate
+    [(560,369),'right', 'pond'],# by the pond
     [(885,300),'down', 'bell tower'],# by the bell tower
     #[(283,594),'up', 'fish box'],# by the fish box                     ERROR
     #[(364,582),'down', 'fish shop'],# by the fish shop                ERROR
     #[(481,591),'up', 'main shop'],# by the main shop                ERROR
-    #[(5* 25, 26* 25),'down', 'bottom corner'],# by the bottom corner
-    #[(1198,490),'down', 'dojo'],# by the dojo
-    #[(625,576),'right', 'tree']# by the tree
+    [(5* 25, 26* 25),'down', 'bottom corner'],# by the bottom corner
+    [(1198,490),'down', 'dojo'],# by the dojo
+    [(625,576),'right', 'tree']# by the tree
 ]
 
 def show_positions(screen, frame):
@@ -233,10 +221,11 @@ def update(screen, notebook_open):
 
 
 #villager instantiations  (needs tidying up)
-#Arthur = Villager('bell tower', 'sprite_idle_sheet','sprite_walking_sheet', (27,48))
+Arthur = Villager('bell tower', 'sprite_idle_sheet','sprite_walking_sheet', (27,48))
 Dean = Villager('dojo', 'sprite_idle_sheet','sprite_walking_sheet', (27,48))
-#James = Villager('tall palace', 'sprite_idle_sheet','sprite_walking_sheet', (27,48))
-#Rowan = Villager('tall house', 'sprite_idle_sheet','sprite_walking_sheet', (27,48))
-#Villagerno5 = Villager('', 'sprite_idle_sheet','sprite_walking_sheet', (27,48))
-#Villagerno6 = Villager('', 'sprite_idle_sheet','sprite_walking_sheet', (27,48))
-#Villagerno7 = Villager('', 'sprite_idle_sheet','sprite_walking_sheet', (27,48))
+James = Villager('tall palace', 'sprite_idle_sheet','sprite_walking_sheet', (27,48))
+Rowan = Villager('tall house', 'sprite_idle_sheet','sprite_walking_sheet', (27,48))
+#Villagerno5 = Villager('food shop', 'sprite_idle_sheet','sprite_walking_sheet', (27,48))
+#Villagerno6 = Villager('shop', 'sprite_idle_sheet','sprite_walking_sheet', (27,48))
+Villagerno7 = Villager('big house', 'sprite_idle_sheet','sprite_walking_sheet', (27,48))
+Villagerno8 = Villager('square house', 'sprite_idle_sheet','sprite_walking_sheet', (27,48))

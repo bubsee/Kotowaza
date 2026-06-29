@@ -61,4 +61,5 @@ right_flag = pygame.transform.flip(left_flag, True, False)
 
 #--------------icons-----------------
 icon = pygame.image.load('img/icons/red_fan.png')
-fast_forward = pygame.image.load('img/icons/fast_forward.png')
+#fast_forward = pygame.image.load('img/icons/fast_forward.png')
+notebook_sheet = pygame.image.load('img/icons/notebook_sheet.png')

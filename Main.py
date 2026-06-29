@@ -17,8 +17,8 @@ frame_counter = 0  #for the delay
 #set direction
 direction = 'down'
 #starting coords
-#player_x,player_y = 838,585
-player_x, player_y = 283,594          #line used for debugging
+player_x,player_y = 838,585
+#player_x, player_y = 283,594          #line used for debugging
 #speed of movement
 speed = 3
 #whether idling or not
@@ -44,7 +44,7 @@ def display_floor(screen):
         y += objects.tile_width
 
 pygame.init()
-pygame.display.set_caption('Kotozawa')
+pygame.display.set_caption('Kotowaza')
 pygame.display.set_icon(objects.icon)
 screen = pygame.display.set_mode((1250, 700), pygame.RESIZABLE)
 
@@ -61,9 +61,11 @@ while True:
             if event.key == pygame.K_TAB:
                 notebook_open = not notebook_open
             #bind escape to close
-            if event.key == pygame.K_ESCAPE:
+            elif event.key == pygame.K_ESCAPE:
                 pygame.quit()
                 sys.exit()
+            elif event.key == pygame.K_h:
+                hitboxes.showing = not hitboxes.showing
 
         elif event.type == pygame.QUIT:
             pygame.quit()
@@ -100,6 +102,7 @@ while True:
         if keys[pygame.K_f]:
             #fast forward
             ...
+
     else:
         idling = True
 
@@ -132,7 +135,7 @@ while True:
 
     background_surface.blit(current_image, (player_x, player_y))
 
-    print(f'{player_x},{player_y}')  # debugging player coords
+    #print(f'{player_x},{player_y}')  # debugging player coords
     #print(entries.check_entry(player_x, player_y))  # debugging entries of buildings
     #NPCs.show_positions(background_surface,frame)   #debugging villager idling positions
     #print(NPCs.Arthur.end_point)     #debug NPCs endpoint
