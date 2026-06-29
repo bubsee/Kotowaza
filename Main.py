@@ -17,13 +17,12 @@ frame_counter = 0  #for the delay
 #set direction
 direction = 'down'
 #starting coords
-player_x,player_y = 838,585
-#player_x, player_y = 980,140
+#player_x,player_y = 838,585
+player_x, player_y = 283,594          #line used for debugging
 #speed of movement
 speed = 3
 #whether idling or not
 idling = True
-ticker = 0
 notebook_open = False
 
 def display_floor(screen):
@@ -60,7 +59,7 @@ while True:
         if event.type == pygame.KEYDOWN:
             #bind tab to notebook open
             if event.key == pygame.K_TAB:
-                notebook_open = False
+                notebook_open = not notebook_open
             #bind escape to close
             if event.key == pygame.K_ESCAPE:
                 pygame.quit()
@@ -73,27 +72,34 @@ while True:
     keys = pygame.key.get_pressed()
     sprite_hitbox = pygame.Rect(player_x+1, player_y+34, sprites.sprite_size_x-2, 8)
 
-    #key binding for movement of sprite and map movement
-    if keys[pygame.K_LEFT] or keys[pygame.K_a]:
-        direction = "left"
-        if hitboxes.movement_allowed(sprite_hitbox, player_x - speed , player_y):
-            player_x -= speed
-            idling = False
-    elif keys[pygame.K_RIGHT] or keys[pygame.K_d]:
-        direction = "right"
-        if hitboxes.movement_allowed(sprite_hitbox, player_x + speed , player_y):
-            player_x += speed
-            idling = False
-    elif keys[pygame.K_UP] or keys[pygame.K_w]:
-        direction = "up"
-        if hitboxes.movement_allowed(sprite_hitbox, player_x  , player_y - speed):
-            player_y -= speed
-            idling = False
-    elif keys[pygame.K_DOWN] or keys[pygame.K_s]:
-        direction = "down"
-        if hitboxes.movement_allowed(sprite_hitbox, player_x , player_y + speed):
-            player_y += speed
-            idling = False
+    if not notebook_open:
+        #key binding for movement of sprite and map movement
+        if keys[pygame.K_LEFT] or keys[pygame.K_a]:
+            direction = "left"
+            if hitboxes.movement_allowed(sprite_hitbox, player_x - speed , player_y):
+                player_x -= speed
+                idling = False
+        elif keys[pygame.K_RIGHT] or keys[pygame.K_d]:
+            direction = "right"
+            if hitboxes.movement_allowed(sprite_hitbox, player_x + speed , player_y):
+                player_x += speed
+                idling = False
+        elif keys[pygame.K_UP] or keys[pygame.K_w]:
+            direction = "up"
+            if hitboxes.movement_allowed(sprite_hitbox, player_x  , player_y - speed):
+                player_y -= speed
+                idling = False
+        elif keys[pygame.K_DOWN] or keys[pygame.K_s]:
+            direction = "down"
+            if hitboxes.movement_allowed(sprite_hitbox, player_x , player_y + speed):
+                player_y += speed
+                idling = False
+        else:
+            idling = True
+
+        if keys[pygame.K_f]:
+            #fast forward
+            ...
     else:
         idling = True
 
@@ -126,13 +132,14 @@ while True:
 
     background_surface.blit(current_image, (player_x, player_y))
 
-    #print(player_x, player_y)  # debugging player coords
+    print(f'{player_x},{player_y}')  # debugging player coords
     #print(entries.check_entry(player_x, player_y))  # debugging entries of buildings
-    #NPCs.show_positions(screen,frame)   #debugging villager idling positions
+    #NPCs.show_positions(background_surface,frame)   #debugging villager idling positions
     #print(NPCs.Arthur.end_point)     #debug NPCs endpoint
     #print(NPCs.Arthur.route)
 
-    NPCs.update(background_surface, current_image)
+    NPCs.update(background_surface, notebook_open)
+
 
 
 
@@ -142,11 +149,12 @@ while True:
     screen.blit(background_surface, (0, 0))
 
     screenshot = screen.copy()
-    Notebook.run_notebook_screen(screen, notebook_open, screenshot)
-    book_open = False
+    if notebook_open:
+        Notebook.run_notebook_screen(screen, notebook_open, screenshot)
 
-    #frame (for animations) incrementation
-    frame_counter += 1
+    if not notebook_open:
+        #frame (for animations) incrementation
+        frame_counter += 1
 
     if frame_counter >= sprites.frame_delay:
         frame += 1
@@ -154,11 +162,8 @@ while True:
 
         frame = frame % 4
 
-    # ticker incrementation
-    ticker += 1
-
     #hitboxes
-    if hitboxes.showing:
+    if hitboxes.showing and not notebook_open:
         hitboxes.draw(screen)
         pygame.draw.rect(screen, (255, 0, 0), sprite_hitbox, 2)
 

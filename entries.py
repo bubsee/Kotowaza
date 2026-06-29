@@ -3,10 +3,10 @@ building_entries = {
     'main palace': (610,264),
     'food shop': (337,576),
     'shop': (469,573),
-    'tall palace': (124,204),
-    'bell tower': (885,265),
-    'dojo': (1162,455),
-    'tall house': (980,140),
+    'tall palace': (124,234),
+    'bell tower': (885,295),
+    'dojo': (1162,485),
+    'tall house': (980,170),
     'big house': (1078,138)}
 
 def check_entry(player_x, player_y):

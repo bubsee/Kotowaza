@@ -18,7 +18,7 @@ def take_row(row:int,file:str,file_dimensions:tuple):
 sprite_size_x, sprite_size_y = (27,48)
 frame_delay = 6  #how fast the sprite animation will play
 
-#-----------------DEFINITIONS
+#-----------------DEFINITIONS--------------------------
 down_run = take_row(0,'walking',(311,601))
 up_run = take_row(1,'walking',(311,601))
 left_run = take_row(2,'walking',(311,601))

@@ -58,4 +58,7 @@ lake_short_bottom_edge = pygame.transform.scale(lake_bottom_edge, (27,4))
 lake_short_top_edge = pygame.transform.scale(lake_top_edge, (27,4))
 left_flag = create('details/flag',(20,60))
 right_flag = pygame.transform.flip(left_flag, True, False)
+
+#--------------icons-----------------
 icon = pygame.image.load('img/icons/red_fan.png')
+fast_forward = pygame.image.load('img/icons/fast_forward.png')
