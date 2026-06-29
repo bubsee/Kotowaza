@@ -1,7 +1,7 @@
 import pygame
 
-def take_row(row:int,file:str,file_dimensions:tuple):
-    frame_height, frame_width = file_dimensions[1] // 4, file_dimensions[0] // 4
+def take_row(row:int,file:str,pixel_file_dimensions:tuple):
+    frame_height, frame_width = pixel_file_dimensions[1] // 4, pixel_file_dimensions[0] // 4
     sprite_sheet = pygame.image.load(f'img/sprites/sprite_{file}_sheet.png')
     array = []
     x = float(0.0)
