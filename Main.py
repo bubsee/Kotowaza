@@ -60,6 +60,7 @@ while True:
             #bind tab to notebook open
             if event.key == pygame.K_TAB:
                 notebook_open = not notebook_open
+                Notebook.frame_pointer = 0
             #bind escape to close
             elif event.key == pygame.K_ESCAPE:
                 pygame.quit()
