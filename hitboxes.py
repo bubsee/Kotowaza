@@ -25,12 +25,9 @@ walls = [
     pygame.Rect(918,120,20,160),
     pygame.Rect(960,41,70,120),  # left_house
     pygame.Rect(1040,62,100,100),  # middle_house
-    pygame.Rect(1150,63,90,100),  # right_house
-    #pool
-    pygame.Rect(600, 366, 50, 58),  # vertical
-    pygame.Rect(594, 376, 62, 40),  # horizontal
-    #pygame.Rect(601, 368, 44, 54),  # middle fill
-]
+    pygame.Rect(1150,63,90,100)]
+
+
 
 
 #add in the details

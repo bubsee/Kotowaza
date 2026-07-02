@@ -44,7 +44,7 @@ object_records = [
     [objects.sakura, (432, 140), 0],
     [objects.sakura, (432, 190), 0],
     [objects.sakura, (432, 240), 0],
-    [objects.pond, (591, 360), 0],  # pond
+    #[objects.pond, (591, 360), 0],  # pond
     [objects.tree, (854, 245), 0],  # left side trees
     [objects.tree, (854, 275), 0],
     [objects.tree, (854, 305), 0],
