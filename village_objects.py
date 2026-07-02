@@ -18,6 +18,8 @@ object_records = [
     [objects.side_hedge, (1141, 195), 1],
     [objects.side_hedge, (1181, 195), 1],
     [objects.side_hedge, (945, 195), 1],
+    [objects.single_hedge, (1024, 135), 0],
+    [objects.single_hedge, (1134, 135), 0],
 
     #behind
 # ---------------BUILDINGS------------------
