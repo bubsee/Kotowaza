@@ -1,13 +1,13 @@
 import pygame
+import list_of_hitboxes
 import map
 import sprites
 import random
 import entries
-import hitboxes
-import Notebook
 
 villager_speed = 1
 villagers = []
+NPCs = []
 
 def nearest_path_tile(px, py):
     col, row = (px + 12) // 25, (py + 12) // 25
@@ -46,7 +46,7 @@ def BFS(start_coords: tuple, end_coords: tuple):
             if map.grid[tile[1]][tile[0]] != 1 or tile in came_from:
                 continue
             tile_rect = pygame.Rect(tile[0] * 25 + 1, tile[1] * 25 + 1, 23, 23)
-            if any(tile_rect.colliderect(wall) for wall in hitboxes.walls):
+            if any(tile_rect.colliderect(wall) for wall in list_of_hitboxes.all_hitboxes):
                 continue
             came_from[tile] = inspect
             queue.append(tile)
@@ -57,6 +57,7 @@ def BFS(start_coords: tuple, end_coords: tuple):
 
 class Villager:
     def __init__(self, start_building: str, idle_spritesheet, walking_spritesheet, dimensions: tuple):
+        NPCs.append(self)
         #animation stuff
         self.direction = 'down'
         self.frame = 0    #pointer
@@ -69,7 +70,8 @@ class Villager:
         self.start_building = start_building
         self.x, self.y = entries.building_entries[start_building]     #fetch the coordinates of the start buiding's door
         self.end_point = random.choice(stop_spots)    #choose random stop spot
-        self.hitbox = pygame.Rect(self.x, self.y, 20, 20)
+        self.hitbox = pygame.Rect(self.x - 10, self.y, 20, 8)
+        list_of_hitboxes.all_hitboxes.append(self.hitbox)
 
 
         #print(map.grid[self.y // 25][self.x // 25])  #debugging start position
@@ -85,6 +87,13 @@ class Villager:
 
         villagers.append(self)
 
+    def redefine_hitbox(self):
+        if self.direction == 'down' or self.direction == 'up':
+            self.hitbox = pygame.Rect(self.x-10, self.y, 20, 8)
+        elif self.direction == 'left' or self.direction == 'right':
+            self.hitbox = pygame.Rect(self.x-10, self.y+4, 20, 8)
+
+
     def find_route(self):
         if self.arrived:
             x = self.end_point
@@ -97,52 +106,68 @@ class Villager:
         self.route = BFS((self.x, self.y), self.end_point[0])  # find the applicable path
         self.arrived = False
 
+    def sprite_is_in_the_way(self)-> bool:
+        if self.direction == 'up':
+            future_hitbox = pygame.Rect(self.x-10, self.y-villager_speed, 20, 8)
+        elif self.direction == 'down':
+            future_hitbox = pygame.Rect(self.x-10, self.y+villager_speed, 20, 8)
+        elif self.direction == 'left':
+            future_hitbox = pygame.Rect(self.x-10-villager_speed, self.y + 4, 20, 8)
+        elif self.direction == 'right':
+            future_hitbox = pygame.Rect(self.x-10+villager_speed, self.y+4, 20, 8)
+
+        if future_hitbox:
+            ...
+
     def walk_to_destination(self, screen, notebook_open):
-        if not notebook_open:
-            if self.is_tapping_foot:
-              self.wait_timer += 1
-              if self.wait_timer > self.wait_length:
-                  self.wait_timer = None
-                  self.is_tapping_foot = False
+        if self.sprite_is_in_the_way:
+            self.is_tapping_foot == True
+        else:
+            if not notebook_open:
+                if self.is_tapping_foot:
+                  self.wait_timer += 1
+                  if self.wait_timer > self.wait_length:
+                      self.wait_timer = None
+                      self.is_tapping_foot = False
 
-            elif self.route != []:
-                target = self.route[-1]
-                relative_positon = target[0] - self.x, target[1] - self.y
+                elif self.route != []:
+                    target = self.route[-1]
+                    relative_positon = target[0] - self.x, target[1] - self.y
 
-                # snap to node on path when close enough (may look weird)
-                if self.x > target[0] - villager_speed and self.x < target[0] + villager_speed and self.y > target[1] - villager_speed and self.y < target[1] + villager_speed:
-                    self.x = target[0]
-                    self.y = target[1]
-                    self.route.remove(self.route[-1])
+                    # snap to node on path when close enough (may look weird)
+                    if self.x > target[0] - villager_speed and self.x < target[0] + villager_speed and self.y > target[1] - villager_speed and self.y < target[1] + villager_speed:
+                        self.x = target[0]
+                        self.y = target[1]
+                        self.route.remove(self.route[-1])
 
-                # adjust x coord
-                elif relative_positon[0] > 0:
-                    self.x += villager_speed
-                    self.direction = 'right'
-                elif relative_positon[0] < 0:
-                    self.x -= villager_speed
-                    self.direction = 'left'
+                    # adjust x coord
+                    elif relative_positon[0] > 0:
+                        self.x += villager_speed
+                        self.direction = 'right'
+                    elif relative_positon[0] < 0:
+                        self.x -= villager_speed
+                        self.direction = 'left'
 
-                # adjust y coord
-                if relative_positon[1] > 0:
-                    self.y += villager_speed
-                    self.direction = 'down'
-                elif relative_positon[1] < 0:
-                    self.y -= villager_speed
-                    self.direction = 'up'
+                    # adjust y coord
+                    if relative_positon[1] > 0:
+                        self.y += villager_speed
+                        self.direction = 'down'
+                    elif relative_positon[1] < 0:
+                        self.y -= villager_speed
+                        self.direction = 'up'
 
-            self.frame_counter = (self.frame_counter + 1) % (10 * 4)  # Adjust 15 for speed
-            if self.frame_counter % 10 == 0:
-                self.frame = (self.frame + 1) % 4
+                self.frame_counter = (self.frame_counter + 1) % (10 * 4)  # Adjust 15 for speed
+                if self.frame_counter % 10 == 0:
+                    self.frame = (self.frame + 1) % 4
 
-        self.choose_image()
+            self.choose_image()
 
-        #pygame.draw.rect(screen, (255, 255, 0), (self.x, self.y, 10, 10))       #print yellow rectangles instead of sprite images
-        screen.blit(self.current_image,(self.x - 13, self.y - 30))       #print sprite images
-        if self.route == []:
-            self.arrived = True
-            self.wait_timer = 0
-            self.is_tapping_foot = True
+            #pygame.draw.rect(screen, (255, 255, 0), (self.x, self.y, 10, 10))       #print yellow rectangles instead of sprite images
+            screen.blit(self.current_image,(self.x - 13, self.y - 30))       #print sprite images
+            if self.route == []:
+                self.arrived = True
+                self.wait_timer = 0
+                self.is_tapping_foot = True
 
     def show_path(self):      # for debugging
         print(f'route: {self.start_building} -> {self.end_point[2]}')
@@ -226,17 +251,17 @@ James = Villager('tall palace', 'sprite_idle_sheet','sprite_walking_sheet', (27,
 Rowan = Villager('tall house', 'sprite_idle_sheet','sprite_walking_sheet', (27,48))
 #Villagerno5 = Villager('food shop', 'sprite_idle_sheet','sprite_walking_sheet', (27,48))
 #Villagerno6 = Villager('shop', 'sprite_idle_sheet','sprite_walking_sheet', (27,48))
-Lemonie = Villager('big house', 'sprite_idle_sheet','sprite_walking_sheet', (27,48))
-Olex = Villager('square house', 'sprite_idle_sheet','sprite_walking_sheet', (27,48))
+#Lemonie = Villager('big house', 'sprite_idle_sheet','sprite_walking_sheet', (27,48))
+#Olex = Villager('square house', 'sprite_idle_sheet','sprite_walking_sheet', (27,48))
 
 
 
 
-
-#NPCs = ['Arthur','Dean','James','Rowan','Lemonie','Olex']
-def show_villager_hitboxes(screen):
-    #for NPC in NPCs:
-    screen.blit(NPC.hitbox)
+def update_villager_hitboxes(screen):
+    for NPC in NPCs:
+        list_of_hitboxes.all_hitboxes.remove(NPC.hitbox)
+        NPC.redefine_hitbox()
+        list_of_hitboxes.all_hitboxes.append(NPC.hitbox)
 
 
 

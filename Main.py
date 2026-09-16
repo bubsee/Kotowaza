@@ -9,6 +9,7 @@ import NPCs
 import time
 import Notebook
 import village_objects
+import list_of_hitboxes
 
 #-----------sprite-------------
 #frame counting
@@ -170,7 +171,7 @@ while True:
     if hitboxes.showing and not notebook_open:
         hitboxes.draw(screen)
         pygame.draw.rect(screen, (255, 0, 0), sprite_hitbox, 2)
-        NPCs.show_villager_hitboxes(screen)
+        NPCs.update_villager_hitboxes(screen)
 
     clock.tick(120)
     pygame.display.flip()
