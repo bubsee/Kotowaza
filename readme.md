@@ -1,12 +1,12 @@
-# Kotozawa  |  ことわざ
+# Kotowaza  |  ことわざ
 
-🌱 **Kotozawa** is a charming pixel-art game inspired by Japanese proverbs (ことわざ, *kotowaza*). Explore a vibrant world, discover hidden paths, and immerse yourself in a relaxing, tile-based adventure.
+🌱 **Kotowaza** is a charming pixel-art game inspired by Japanese proverbs (ことわざ, *kotowaza*). Explore a vibrant world, discover hidden paths, and immerse yourself in a relaxing, tile-based adventure.
 
 ---
 
 ## 🎮 Game Overview
 
-**Kotozawa** is a top-down exploration game where you wander through a lush landscape, uncovering secrets and enjoying tranquil scenery. The world is built from hand-crafted tiles, with randomized grass and winding paths, evoking the spirit of classic Japanese countryside.
+**Kotowaza** is a top-down exploration game where you wander through a lush landscape, uncovering secrets and enjoying tranquil scenery. The world is built from hand-crafted tiles, with randomized grass and winding paths, evoking the spirit of classic Japanese countryside.
 
 **Features:**
 - Beautiful pixel-art tiles and objects (houses, shops, and more)
@@ -25,7 +25,7 @@
 
 ## 🌸 Visual Style
 
-Kotozawa uses a custom tileset to create a unique, atmospheric world. The environment is designed to be both nostalgic and calming, with subtle variations in grass and detailed Japanese-inspired buildings.
+Kotowaza uses a custom tileset to create a unique, atmospheric world. The environment is designed to be both nostalgic and calming, with subtle variations in grass and detailed Japanese-inspired buildings.
 
 ---
 
@@ -48,4 +48,4 @@ The game draws inspiration from Japanese proverbs, encouraging players to explor
 
 ---
 
-*Enjoy your journey through Kotozawa!* 🌾
+*Enjoy your journey through Kotowaza!* 🌾
