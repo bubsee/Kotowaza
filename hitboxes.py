@@ -9,11 +9,6 @@ def add(x, y, object):
     rect = pygame.Rect(x, y, object.get_width(), object.get_height())
     list_of_hitboxes.all_hitboxes.append(rect)
 
-
-
-
-
-
 #add in the details
 add(804,590,objects.statue)  #left statue
 add(875,590,objects.statue)  #right statue
@@ -37,6 +32,7 @@ def movement_allowed(hitbox, new_x, new_y):
                [future_hitbox.right, future_hitbox.bottom]
                ]
 
+    #check that none of the sprites hitbox corners would be off the path
     for vertice in corners:
         col, row = vertice[0] // objects.tile_width, vertice[1] // objects.tile_width
         if map.grid[row][col] != 1:
@@ -46,4 +42,3 @@ def movement_allowed(hitbox, new_x, new_y):
         if future_hitbox.colliderect(wall):
             return False
     return True
-

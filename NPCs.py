@@ -106,6 +106,7 @@ class Villager:
         self.route = BFS((self.x, self.y), self.end_point[0])  # find the applicable path
         self.arrived = False
 
+    @property
     def sprite_is_in_the_way(self)-> bool:
         if self.direction == 'up':
             future_hitbox = pygame.Rect(self.x-10, self.y-villager_speed, 20, 8)
@@ -116,8 +117,9 @@ class Villager:
         elif self.direction == 'right':
             future_hitbox = pygame.Rect(self.x-10+villager_speed, self.y+4, 20, 8)
 
-        if future_hitbox:
+        if future_hitbox.colliderect(self.hitbox):
             ...
+        return False
 
     def walk_to_destination(self, screen, notebook_open):
         if self.sprite_is_in_the_way:

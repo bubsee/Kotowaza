@@ -167,6 +167,8 @@ while True:
 
         frame = frame % 4
 
+
+
     #hitboxes
     if hitboxes.showing and not notebook_open:
         hitboxes.draw(screen)
