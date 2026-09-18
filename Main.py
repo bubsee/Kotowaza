@@ -143,7 +143,7 @@ while True:
     #print(NPCs.Arthur.end_point)     #debug NPCs endpoint
     #print(NPCs.Arthur.route)
 
-    NPCs.update(background_surface, notebook_open)
+    NPCs.update(background_surface, notebook_open, sprite_hitbox)
 
 
 

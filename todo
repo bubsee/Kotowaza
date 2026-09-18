@@ -1,4 +1,5 @@
 TODO:
-- put villager hitboxes into hitboxes.walls
-- develope menu
+- develope villagger hitboxes (so they avoid each other and stop for sprite)
+- give each villager unique art
 - add interactions (press f to interact)
+- develope menu

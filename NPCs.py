@@ -78,7 +78,7 @@ class Villager:
         self.at_home = True
         self.arrived = False
         self.is_tapping_foot = False
-        self.wait_timer = None
+        self.wait_timer = 0
         self.wait_length = 600
 
         self.make_sheets()
@@ -106,8 +106,8 @@ class Villager:
         self.route = BFS((self.x, self.y), self.end_point[0])  # find the applicable path
         self.arrived = False
 
-    @property
-    def sprite_is_in_the_way(self)-> bool:
+
+    def sprite_is_in_the_way(self, sprite_future_hitbox)-> bool:
         if self.direction == 'up':
             future_hitbox = pygame.Rect(self.x-10, self.y-villager_speed, 20, 8)
         elif self.direction == 'down':
@@ -117,59 +117,57 @@ class Villager:
         elif self.direction == 'right':
             future_hitbox = pygame.Rect(self.x-10+villager_speed, self.y+4, 20, 8)
 
-        if future_hitbox.colliderect(self.hitbox):
-            ...
+        if future_hitbox.colliderect(sprite_future_hitbox):
+            return True
         return False
 
     def walk_to_destination(self, screen, notebook_open):
-        if self.sprite_is_in_the_way:
-            self.is_tapping_foot == True
-        else:
-            if not notebook_open:
-                if self.is_tapping_foot:
-                  self.wait_timer += 1
-                  if self.wait_timer > self.wait_length:
-                      self.wait_timer = None
-                      self.is_tapping_foot = False
 
-                elif self.route != []:
-                    target = self.route[-1]
-                    relative_positon = target[0] - self.x, target[1] - self.y
+        if not notebook_open:
+            if self.is_tapping_foot:
+                self.wait_timer += 1
+                if self.wait_timer > self.wait_length:
+                    self.wait_timer = None
+                    self.is_tapping_foot = False
 
-                    # snap to node on path when close enough (may look weird)
-                    if self.x > target[0] - villager_speed and self.x < target[0] + villager_speed and self.y > target[1] - villager_speed and self.y < target[1] + villager_speed:
-                        self.x = target[0]
-                        self.y = target[1]
-                        self.route.remove(self.route[-1])
+            elif self.route != []:
+                target = self.route[-1]
+                relative_positon = target[0] - self.x, target[1] - self.y
 
-                    # adjust x coord
-                    elif relative_positon[0] > 0:
-                        self.x += villager_speed
-                        self.direction = 'right'
-                    elif relative_positon[0] < 0:
-                        self.x -= villager_speed
-                        self.direction = 'left'
+                # snap to node on path when close enough (may look weird)
+                if self.x > target[0] - villager_speed and self.x < target[0] + villager_speed and self.y > target[1] - villager_speed and self.y < target[1] + villager_speed:
+                    self.x = target[0]
+                    self.y = target[1]
+                    self.route.remove(self.route[-1])
 
-                    # adjust y coord
-                    if relative_positon[1] > 0:
-                        self.y += villager_speed
-                        self.direction = 'down'
-                    elif relative_positon[1] < 0:
-                        self.y -= villager_speed
-                        self.direction = 'up'
+                # adjust x coord
+                elif relative_positon[0] > 0:
+                    self.x += villager_speed
+                    self.direction = 'right'
+                elif relative_positon[0] < 0:
+                    self.x -= villager_speed
+                    self.direction = 'left'
 
-                self.frame_counter = (self.frame_counter + 1) % (10 * 4)  # Adjust 15 for speed
-                if self.frame_counter % 10 == 0:
-                    self.frame = (self.frame + 1) % 4
+                # adjust y coord
+                if relative_positon[1] > 0:
+                    self.y += villager_speed
+                    self.direction = 'down'
+                elif relative_positon[1] < 0:
+                    self.y -= villager_speed
+                    self.direction = 'up'
 
-            self.choose_image()
+            self.frame_counter = (self.frame_counter + 1) % (10 * 4)  # Adjust 15 for speed
+            if self.frame_counter % 10 == 0:
+               self.frame = (self.frame + 1) % 4
 
-            #pygame.draw.rect(screen, (255, 255, 0), (self.x, self.y, 10, 10))       #print yellow rectangles instead of sprite images
-            screen.blit(self.current_image,(self.x - 13, self.y - 30))       #print sprite images
-            if self.route == []:
-                self.arrived = True
-                self.wait_timer = 0
-                self.is_tapping_foot = True
+        self.choose_image()
+
+        #pygame.draw.rect(screen, (255, 255, 0), (self.x, self.y, 10, 10))       #print yellow rectangles instead of sprite images
+        screen.blit(self.current_image,(self.x - 13, self.y - 30))       #print sprite images
+        if self.route == []:
+            self.arrived = True
+            self.wait_timer = 0
+            self.is_tapping_foot = True
 
     def show_path(self):      # for debugging
         print(f'route: {self.start_building} -> {self.end_point[2]}')
@@ -238,12 +236,18 @@ def show_positions(screen, frame):
             
         screen.blit(current_image, (item[0][0], item[0][1]))
 
-def update(screen, notebook_open):
+def update(screen, notebook_open, sprite_hitbox):
     for character in villagers:
+        if character.sprite_is_in_the_way(sprite_hitbox):
+            character.is_tapping_foot = True
+        else:
+            character.is_tapping_foot = False
+
         if character.route == []:
             character.find_route()
         else:
             character.walk_to_destination(screen, notebook_open)
+
 
 
 #villager instantiations  (needs tidying up)
