@@ -209,12 +209,16 @@ class Villager:
         self.left_idle = sprites.take_row(2, 'idle', (316, 643))
         self.right_idle = sprites.take_row(3, 'idle', (316, 643))
 
+    def close_by(self, sprite_coords:tuple)->bool:
+        if (self.x > sprite_coords[0] - 30 and self.x <sprite_coords[0] + 60) and (self.y > sprite_coords[1] - 30 and self.y < sprite_coords[1] + 60):
+            return True
+        return False
 
 stop_spots = [  #format: [coords, direction]
     [(286,345),'up', 'bridge'],# on the bridge
     [(103,309),'down', 'gate'],# under the gate
     [(560,369),'right', 'pond'],# by the pond
-    [(885,300),'down', 'bell tower'],# by the bell tower
+    #[(885,300),'down', 'bell tower'],# by the bell tower                 ERROR
     #[(283,594),'up', 'fish box'],# by the fish box                     ERROR
     #[(364,582),'down', 'fish shop'],# by the fish shop                ERROR
     #[(481,591),'up', 'main shop'],# by the main shop                ERROR
@@ -254,7 +258,7 @@ def update(screen, notebook_open, sprite_hitbox):
 Arthur = Villager('bell tower', 'sprite_idle_sheet','sprite_walking_sheet', (27,48))
 Dean = Villager('dojo', 'sprite_idle_sheet','sprite_walking_sheet', (27,48))
 James = Villager('tall palace', 'sprite_idle_sheet','sprite_walking_sheet', (27,48))
-Rowan = Villager('tall house', 'sprite_idle_sheet','sprite_walking_sheet', (27,48))
+#Rowan = Villager('tall house', 'sprite_idle_sheet','sprite_walking_sheet', (27,48))
 #Villagerno5 = Villager('food shop', 'sprite_idle_sheet','sprite_walking_sheet', (27,48))
 #Villagerno6 = Villager('shop', 'sprite_idle_sheet','sprite_walking_sheet', (27,48))
 #Lemonie = Villager('big house', 'sprite_idle_sheet','sprite_walking_sheet', (27,48))

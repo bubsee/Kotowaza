@@ -4,12 +4,10 @@ import map
 import objects
 import sprites
 import hitboxes
-import entries
 import NPCs
-import time
 import Notebook
 import village_objects
-import list_of_hitboxes
+import Text_popups
 
 #-----------sprite-------------
 #frame counting
@@ -173,7 +171,11 @@ while True:
     if hitboxes.showing and not notebook_open:
         hitboxes.draw(screen)
         pygame.draw.rect(screen, (255, 0, 0), sprite_hitbox, 2)
-        NPCs.update_villager_hitboxes(screen)
 
-    clock.tick(120)
+    for villager in NPCs.NPCs:
+        if villager.close_by((player_x, player_y)):
+            Text_popups.Label(screen,(villager.x, villager.y),(82,20),'[F] interact')
+    NPCs.update_villager_hitboxes(screen)
+
+    #clock.tick(120)
     pygame.display.flip()

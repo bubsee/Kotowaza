@@ -1,7 +1,7 @@
 import pygame
 import objects
 import map
-showing = True
+showing = False
 import list_of_hitboxes
 
 #fucntion to add in details hitboxes
