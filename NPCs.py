@@ -214,6 +214,9 @@ class Villager:
             return True
         return False
 
+    def turn_to_face(self, player_coords):
+        ...
+
 stop_spots = [  #format: [coords, direction]
     [(286,345),'up', 'bridge'],# on the bridge
     [(103,309),'down', 'gate'],# under the gate

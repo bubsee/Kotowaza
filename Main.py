@@ -23,6 +23,7 @@ speed = 3
 #whether idling or not
 idling = True
 notebook_open = False
+interactable_villagers = []
 
 def display_floor(screen):
     x = 0
@@ -99,9 +100,9 @@ while True:
         else:
             idling = True
 
-        if keys[pygame.K_f]:
-            #fast forward
-            ...
+        #villager interact
+        if keys[pygame.K_f] and interactable_villagers:
+            print(f'interacted with {interactable_villagers}')
 
     else:
         idling = True
@@ -142,6 +143,7 @@ while True:
     #print(NPCs.Arthur.route)
 
     NPCs.update(background_surface, notebook_open, sprite_hitbox)
+    interactable_villagers = []
 
 
 
@@ -174,6 +176,7 @@ while True:
 
     for villager in NPCs.NPCs:
         if villager.close_by((player_x, player_y)):
+            interactable_villagers.append(villager)
             Text_popups.Label(screen,(villager.x, villager.y),(82,20),'[F] interact')
     NPCs.update_villager_hitboxes(screen)
 
