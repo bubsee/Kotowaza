@@ -56,7 +56,7 @@ def BFS(start_coords: tuple, end_coords: tuple):
 
 
 class Villager:
-    def __init__(self, start_building: str, idle_spritesheet, walking_spritesheet, dimensions: tuple):
+    def __init__(self, start_building: str, idle_spritesheet, walking_spritesheet, dimensions: tuple, name='Unnamed_villager'):
         NPCs.append(self)
         #animation stuff
         self.direction = 'down'
@@ -83,9 +83,13 @@ class Villager:
 
         self.make_sheets()
         self.route = BFS((self.x, self.y), self.end_point[0])
+        self.name = name
 
 
         villagers.append(self)
+
+    def __repr__(self):
+        return self.name
 
     def redefine_hitbox(self):
         if self.direction == 'down' or self.direction == 'up':
@@ -258,14 +262,14 @@ def update(screen, notebook_open, sprite_hitbox):
 
 
 #villager instantiations  (needs tidying up)
-Arthur = Villager('bell tower', 'sprite_idle_sheet','sprite_walking_sheet', (27,48))
-Dean = Villager('dojo', 'sprite_idle_sheet','sprite_walking_sheet', (27,48))
-James = Villager('tall palace', 'sprite_idle_sheet','sprite_walking_sheet', (27,48))
-#Rowan = Villager('tall house', 'sprite_idle_sheet','sprite_walking_sheet', (27,48))
+Arthur = Villager('bell tower', 'sprite_idle_sheet','sprite_walking_sheet', (27,48), name='Arthur')
+Dean = Villager('dojo', 'sprite_idle_sheet', 'sprite_walking_sheet', (27, 48),name='Dean')
+James = Villager('tall palace', 'sprite_idle_sheet', 'sprite_walking_sheet', (27, 48),name='James')
+#Rowan = Villager('tall house', 'sprite_idle_sheet','sprite_walking_sheet', (27,48),name='Rowan')
 #Villagerno5 = Villager('food shop', 'sprite_idle_sheet','sprite_walking_sheet', (27,48))
 #Villagerno6 = Villager('shop', 'sprite_idle_sheet','sprite_walking_sheet', (27,48))
-#Lemonie = Villager('big house', 'sprite_idle_sheet','sprite_walking_sheet', (27,48))
-#Olex = Villager('square house', 'sprite_idle_sheet','sprite_walking_sheet', (27,48))
+#Lemonie = Villager('big house', 'sprite_idle_sheet','sprite_walking_sheet', (27,48),name='Lemonie')
+#Olex = Villager('square house', 'sprite_idle_sheet','sprite_walking_sheet', (27,48),name='Olex')
 
 
 

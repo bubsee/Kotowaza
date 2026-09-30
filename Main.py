@@ -8,6 +8,7 @@ import NPCs
 import Notebook
 import village_objects
 import Text_popups
+import entries
 
 #-----------sprite-------------
 #frame counting
@@ -102,7 +103,10 @@ while True:
 
         #villager interact
         if keys[pygame.K_f] and interactable_villagers:
-            print(f'interacted with {interactable_villagers}')
+            print(f'interacted with {interactable_villagers[0]}')
+
+        if keys[pygame.K_f] and entries.check_entry(player_x,player_y):
+            print('Home entrance triggered but no functionality...')
 
     else:
         idling = True
