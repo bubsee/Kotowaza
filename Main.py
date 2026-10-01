@@ -151,7 +151,6 @@ while True:
 
 
 
-
     #details to go OVER the sprite
     village_objects.show_everything_over_sprite(background_surface)
 
@@ -172,6 +171,11 @@ while True:
         frame = frame % 4
 
 
+    building = entries.check_entry(player_x, player_y)
+    if building:
+        Text_popups.Label(screen, (player_x+30, player_y+40),  f'[E] Enter {building}')
+
+
 
     #hitboxes
     if hitboxes.showing and not notebook_open:
@@ -181,7 +185,7 @@ while True:
     for villager in NPCs.NPCs:
         if villager.close_by((player_x, player_y)):
             interactable_villagers.append(villager)
-            Text_popups.Label(screen,(villager.x, villager.y),(82,20),'[F] interact')
+            Text_popups.Label(screen,(villager.x, villager.y),'[F] interact')
     NPCs.update_villager_hitboxes(screen)
 
     #clock.tick(120)

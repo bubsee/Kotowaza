@@ -1,7 +1,8 @@
 import pygame
 
-def Label(screen,coords: tuple, dimensions: tuple, text: str):
+def Label(screen,coords: tuple, text: str):
 
+    dimensions = (len(text)*8,20)
     rect_parameters = coords + dimensions
     rect = pygame.Rect(rect_parameters)
     pygame.draw.rect(screen, (0,0,0), rect,0, border_radius=5)

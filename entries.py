@@ -15,3 +15,4 @@ def check_entry(player_x, player_y):
         if abs(player_x - building_entries[building][0]) < 10 and abs(player_y - building_entries[building][1]) < 10:
             return building
     return False
+
