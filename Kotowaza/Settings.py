@@ -1,5 +1,9 @@
 '''the file for all the constant variables (denoted by all caps)'''
 
+#DISPLAY BOOLEANS
+HITBOXES_SHOWING = False
+
+
 # Display Settings
 SCREEN_WIDTH = 1250
 SCREEN_HEIGHT = 700

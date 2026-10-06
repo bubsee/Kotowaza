@@ -91,10 +91,11 @@ class Villager:
         return self.name
 
     def redefine_hitbox(self):
-        if self.direction == 'down' or self.direction == 'up':
-            self.hitbox = pygame.Rect(self.x-10, self.y, 20, 8)
-        elif self.direction == 'left' or self.direction == 'right':
-            self.hitbox = pygame.Rect(self.x-10, self.y+4, 20, 8)
+        if not self.is_tapping_foot:
+            if self.direction == 'down' or self.direction == 'up':
+                self.hitbox = pygame.Rect(self.x-10, self.y, 20, 8)
+            elif self.direction == 'left' or self.direction == 'right':
+                self.hitbox = pygame.Rect(self.x-10, self.y+4, 20, 8)
 
 
     def find_route(self):
@@ -108,7 +109,6 @@ class Villager:
 
         self.route = BFS((self.x, self.y), self.end_point[0])  # find the applicable path
         self.arrived = False
-
 
     def sprite_is_in_the_way(self, sprite_future_hitbox)-> bool:
         if self.direction == 'up':
@@ -125,7 +125,6 @@ class Villager:
         return False
 
     def walk_to_destination(self, screen, notebook_open):
-
         if not notebook_open:
             if self.is_tapping_foot:
                 self.wait_timer += 1
@@ -152,7 +151,7 @@ class Villager:
                     self.direction = 'left'
 
                 # adjust y coord
-                if relative_positon[1] > 0:
+                elif relative_positon[1] > 0:
                     self.y += VILLAGER_SPEED
                     self.direction = 'down'
                 elif relative_positon[1] < 0:
@@ -252,9 +251,9 @@ def show_positions(screen, frame):
             
         screen.blit(current_image, (item[0][0], item[0][1]))
 
-def update(screen, notebook_open, sprite_hitbox):
+def update(screen, notebook_open, sprite_hitbox, frozen_villager = None, direction = None):
     for character in villagers:
-        if character.sprite_is_in_the_way(sprite_hitbox):
+        if character.sprite_is_in_the_way(sprite_hitbox) or character == frozen_villager:
             character.is_tapping_foot = True
         else:
             character.is_tapping_foot = False
@@ -264,13 +263,16 @@ def update(screen, notebook_open, sprite_hitbox):
         else:
             character.walk_to_destination(screen, notebook_open)
 
+        if character == frozen_villager:
+            character.direction = direction
+
 
 
 #villager instantiations  (needs tidying up)
 Arthur = Villager('bell tower', 'sprite_idle_sheet','sprite_walking_sheet', (27,48), name='Arthur')
 Dean = Villager('dojo', 'sprite_idle_sheet', 'sprite_walking_sheet', (27, 48),name='Dean')
 James = Villager('tall palace', 'sprite_idle_sheet', 'sprite_walking_sheet', (27, 48),name='James')
-#Rowan = Villager('tall house', 'sprite_idle_sheet','sprite_walking_sheet', (27,48),name='Rowan')
+Rowan = Villager('tall house', 'sprite_idle_sheet','sprite_walking_sheet', (27,48),name='Rowan')
 #Villagerno5 = Villager('food shop', 'sprite_idle_sheet','sprite_walking_sheet', (27,48))
 #Villagerno6 = Villager('shop', 'sprite_idle_sheet','sprite_walking_sheet', (27,48))
 #Lemonie = Villager('big house', 'sprite_idle_sheet','sprite_walking_sheet', (27,48),name='Lemonie')
@@ -284,16 +286,4 @@ def update_villager_hitboxes(screen):
         list_of_hitboxes.all_hitboxes.remove(NPC.hitbox)
         NPC.redefine_hitbox()
         list_of_hitboxes.all_hitboxes.append(NPC.hitbox)
-
-
-
-
-
-
-
-
-
-
-
-
 

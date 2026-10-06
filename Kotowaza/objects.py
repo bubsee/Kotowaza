@@ -12,7 +12,7 @@ def create(directory: str, dimensions:tuple):
     return thing
 
 
-#tiles
+#---------------------------------TILES---------------------------------
 grass_sheet = pygame.image.load('img/tiles/grass.png')
 grass1_tile = grass_sheet.subsurface((0, 60, TILE_WIDTH, TILE_WIDTH))
 grass1_tile = pygame.transform.scale(grass1_tile, (TILE_WIDTH,TILE_WIDTH))

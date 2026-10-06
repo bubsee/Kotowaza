@@ -1,7 +1,6 @@
 import pygame
 import objects
 import map
-showing = False
 import list_of_hitboxes
 from Settings import *
 

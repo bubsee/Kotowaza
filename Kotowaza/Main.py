@@ -14,10 +14,13 @@ from Settings import *
 
 frame = 0
 frame_counter = 0
+frozen_NPC = None
 
 #-----game loops------
 notebook_open = False
 conversation_open = False
+
+f_has_been_pressed = False
 
 interactable_villager = None
 
@@ -44,7 +47,11 @@ while True:
                 pygame.quit()
                 sys.exit()
             elif event.key == pygame.K_h:
-                hitboxes.showing = not hitboxes.showing
+                HITBOXES_SHOWINGf = not HITBOXES_SHOWINGf
+
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_f:
+                f_has_been_pressed = False
 
         elif event.type == pygame.QUIT:
             pygame.quit()
@@ -54,37 +61,45 @@ while True:
     sprite_hitbox = pygame.Rect(Player.player_x+1, Player.player_y+34, SPRITE_WIDTH-2, 8)
 
     if not notebook_open:
-        #key binding for movement of sprite and map movement
-        if keys[pygame.K_LEFT] or keys[pygame.K_a]:
-            Player.direction = "left"
-            if hitboxes.movement_allowed(sprite_hitbox, Player.player_x - Player.PLAYER_SPEED , Player.player_y):
-                Player.player_x -= Player.PLAYER_SPEED
-                Player.idling = False
-        elif keys[pygame.K_RIGHT] or keys[pygame.K_d]:
-            Player.direction = "right"
-            if hitboxes.movement_allowed(sprite_hitbox, Player.player_x + Player.PLAYER_SPEED , Player.player_y):
-                Player.player_x += Player.PLAYER_SPEED
-                Player.idling = False
-        elif keys[pygame.K_UP] or keys[pygame.K_w]:
-            Player.direction = "up"
-            if hitboxes.movement_allowed(sprite_hitbox, Player.player_x  , Player.player_y - Player.PLAYER_SPEED):
-                Player.player_y -= Player.PLAYER_SPEED
-                Player.idling = False
-        elif keys[pygame.K_DOWN] or keys[pygame.K_s]:
-            Player.direction = "down"
-            if hitboxes.movement_allowed(sprite_hitbox, Player.player_x , Player.player_y + Player.PLAYER_SPEED):
-                Player.player_y += Player.PLAYER_SPEED
-                Player.idling = False
-        else:
-            Player.idling = True
+        if not conversation_open:
+            #key binding for movement of sprite and map movement
+            if keys[pygame.K_LEFT] or keys[pygame.K_a]:
+                Player.direction = "left"
+                if hitboxes.movement_allowed(sprite_hitbox, Player.player_x - Player.PLAYER_SPEED , Player.player_y):
+                    Player.player_x -= Player.PLAYER_SPEED
+                    Player.idling = False
+            elif keys[pygame.K_RIGHT] or keys[pygame.K_d]:
+                Player.direction = "right"
+                if hitboxes.movement_allowed(sprite_hitbox, Player.player_x + Player.PLAYER_SPEED , Player.player_y):
+                    Player.player_x += Player.PLAYER_SPEED
+                    Player.idling = False
+            elif keys[pygame.K_UP] or keys[pygame.K_w]:
+                Player.direction = "up"
+                if hitboxes.movement_allowed(sprite_hitbox, Player.player_x  , Player.player_y - Player.PLAYER_SPEED):
+                    Player.player_y -= Player.PLAYER_SPEED
+                    Player.idling = False
+            elif keys[pygame.K_DOWN] or keys[pygame.K_s]:
+                Player.direction = "down"
+                if hitboxes.movement_allowed(sprite_hitbox, Player.player_x , Player.player_y + Player.PLAYER_SPEED):
+                    Player.player_y += Player.PLAYER_SPEED
+                    Player.idling = False
+            else:
+                Player.idling = True
 
         #villager interact
-        if keys[pygame.K_f] and interactable_villager:
-            print(f'interacted with {interactable_villager}')
+        if keys[pygame.K_f] :
+            if interactable_villager:
+                if not f_has_been_pressed:
+                    print(f'interacted with {interactable_villager}')
 
-            Player.direction = interactable_villager.turn_to_face(Player.player_x, Player.player_y)
-            print(Player.direction)
-            print(interactable_villager.direction)
+                    Player.direction = interactable_villager.turn_to_face(Player.player_x, Player.player_y)
+                    print(Player.direction)
+                    print(interactable_villager.direction)
+
+                    conversation_open = not conversation_open                        #flip on and off conversation when f is pressed
+
+                    f_has_been_pressed = True                                        #to make it only run once even when button is held
+                    frozen_NPC = None if frozen_NPC else interactable_villager       #toggle frozen npc between None and the villager in conversation
 
 
         if keys[pygame.K_e] and entries.check_entry(Player.player_x,Player.player_y):
@@ -108,10 +123,12 @@ while True:
     #print(NPCs.Arthur.end_point)     #debug NPCs endpoint
     #print(NPCs.Arthur.route)
 
-    NPCs.update(background_surface, notebook_open, sprite_hitbox)
-    interactable_villager = None
+    if not interactable_villager:
+        direction_of_conversationalist = 'down'
+    else:
+        direction_of_conversationalist = interactable_villager.direction
 
-
+    NPCs.update(background_surface, notebook_open, sprite_hitbox, frozen_NPC, direction_of_conversationalist)
 
     #details to go OVER the sprite
     village_objects.show_everything_over_sprite(background_surface)
@@ -132,15 +149,12 @@ while True:
 
         frame = frame % 4
 
-
     building = entries.check_entry(Player.player_x, Player.player_y)
     if building:
         Text_popups.Label(screen, (Player.player_x+30, Player.player_y+40),  f'[E] Enter {building}')
 
-
-
     #hitboxes
-    if hitboxes.showing and not notebook_open:
+    if HITBOXES_SHOWING and not notebook_open:
         hitboxes.draw(screen)
         pygame.draw.rect(screen, (255, 0, 0), sprite_hitbox, 2)
 
