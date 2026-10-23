@@ -10,6 +10,8 @@ import Text_popups
 import entries
 import sprites
 import Player
+import route_mapping
+from Player import player_y
 from Settings import *
 
 frame = 0
@@ -95,6 +97,10 @@ while True:
 
     map.display_floor(background_surface)
 
+
+
+    route_mapping.display_nodes(background_surface)
+
     '''for tile in NPCs.Arthur.route:
         pygame.draw.circle(screen, (255, 0, 0), tile, 5)'''  # debug route being followed by Villager: Arthur
 
@@ -102,7 +108,7 @@ while True:
 
     Player.draw(background_surface,frame)
 
-    #print(f'{Player.player_x},{Player.player_y}')  # debugging player coords
+    #print(f'{Player.player_x+13.5},{Player.player_y+40}')  # debugging player coords
     #print(entries.check_entry(Player.player_x, Player.player_y))  # debugging entries of buildings
     #NPCs.show_positions(background_surface,frame)   #debugging villager Player.idling positions
     #print(NPCs.Arthur.end_point)     #debug NPCs endpoint
@@ -112,9 +118,9 @@ while True:
     interactable_villager = None
 
 
-
     #details to go OVER the sprite
     village_objects.show_everything_over_sprite(background_surface)
+
 
     screen.blit(background_surface, (0, 0))
 
@@ -137,7 +143,11 @@ while True:
     if building:
         Text_popups.Label(screen, (Player.player_x+30, Player.player_y+40),  f'[E] Enter {building}')
 
+    #pygame.draw.circle(screen, (0, 0, 0), (Player.player_x+13.5, Player.player_y+40), 6, 6)
 
+    ''''#shadow
+    pygame.draw.ellipse(screen, (0, 0, 0), (Player.player_x + 13.5 - 10, Player.player_y + 40 - 2.5, 20, 5))'''
+    route_mapping.display_nodes(screen)
 
     #hitboxes
     if hitboxes.showing and not notebook_open:

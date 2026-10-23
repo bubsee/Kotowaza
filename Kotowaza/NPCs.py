@@ -5,54 +5,13 @@ import sprites
 import random
 import entries
 from Settings import *
+import route_mapping
 from objects import left_flag
 
 villagers = []
 NPCs = []
 
-def nearest_path_tile(px, py):
-    col, row = (px + 12) // 25, (py + 12) // 25
-    for dc, dr in [(0,0),(1,0),(-1,0),(0,1),(0,-1)]:
-        nc, nr = col+dc, row+dr
-        if map.grid[nr][nc] == 1:
-            return (nc, nr)
 
-def BFS(start_coords: tuple, end_coords: tuple):
-
-    # convert pixel coords to nearest path tile
-    start = nearest_path_tile(*start_coords)
-    end = nearest_path_tile(*end_coords)
-
-    queue = [start]
-    came_from = {start: None}  # visited tiles and where they came from
-
-    while queue != []:
-        inspect = queue.pop(0)  # take from the front
-
-        if inspect == end:
-            # trace back through came_from to build the path
-            path = []
-            while came_from[inspect] != None:
-                addition = came_from[inspect][0] * 25 +13, came_from[inspect][1] * 25 +13
-                path.append(addition)
-                inspect = came_from[inspect]
-            return path
-
-        local_tiles = [(inspect[0] + 1, inspect[1]),
-                       (inspect[0] - 1, inspect[1]),
-                       (inspect[0], inspect[1]+ 1),
-                       (inspect[0], inspect[1] - 1)
-                        ]
-        for tile in local_tiles:
-            if map.grid[tile[1]][tile[0]] != 1 or tile in came_from:
-                continue
-            tile_rect = pygame.Rect(tile[0] * 25 + 1, tile[1] * 25 + 1, 23, 23)
-            if any(tile_rect.colliderect(wall) for wall in list_of_hitboxes.all_hitboxes):
-                continue
-            came_from[tile] = inspect
-            queue.append(tile)
-
-    return None
 
 
 
@@ -83,7 +42,8 @@ class Villager:
         VILLAGER_WAIT_LENGTH = 600
 
         self.make_sheets()
-        self.route = BFS((self.x, self.y), self.end_point[0])
+        #print(f'{entries.building_entries[self.start_building]}\n{self.end_point[0]}')
+        self.route = route_mapping.find_route(entries.building_entries[self.start_building],self.end_point[0])   #NEW function that returns a list of nodes to travel to
         self.name = name
         villagers.append(self)
 
@@ -106,7 +66,7 @@ class Villager:
             self.end_point = random.choice(stop_spots)
         stop_spots.remove(self.end_point)
 
-        self.route = BFS((self.x, self.y), self.end_point[0])  # find the applicable path
+        self.route = route_mapping.find_route(self.start_building,self.end_point)   #NEW function that returns a list of nodes to travel to
         self.arrived = False
 
 
@@ -126,7 +86,7 @@ class Villager:
 
     def walk_to_destination(self, screen, notebook_open):
 
-        if not notebook_open:
+        '''if not notebook_open:
             if self.is_tapping_foot:
                 self.wait_timer += 1
                 if self.wait_timer > VILLAGER_WAIT_LENGTH:
@@ -170,11 +130,7 @@ class Villager:
         if self.route == []:
             self.arrived = True
             self.wait_timer = 0
-            self.is_tapping_foot = True
-
-    def show_path(self):      # for debugging
-        print(f'route: {self.start_building} -> {self.end_point[2]}')
-        print(self.route)
+            self.is_tapping_foot = True'''
 
     def choose_image(self):
         if self.is_tapping_foot:        #if idle
@@ -212,7 +168,7 @@ class Villager:
         self.left_idle = sprites.take_row(2, 'idle', (316, 643))
         self.right_idle = sprites.take_row(3, 'idle', (316, 643))
 
-    def close_by(self, sprite_coords:tuple)->bool:
+    def close_by(self, sprite_coords:tuple)->bool:   #checks if the player is near a villager
         if (self.x > sprite_coords[0] - 30 and self.x <sprite_coords[0] + 60) and (self.y > sprite_coords[1] - 30 and self.y < sprite_coords[1] + 60):
             return True
         return False
@@ -226,17 +182,18 @@ class Villager:
             return 'right'
 
 
-stop_spots = [  #format: [coords, direction]
-    [(286,345),'up', 'bridge'],# on the bridge
-    [(103,309),'down', 'gate'],# under the gate
-    [(560,369),'right', 'pond'],# by the pond
-    #[(885,300),'down', 'bell tower'],# by the bell tower                 ERROR
-    #[(283,594),'up', 'fish box'],# by the fish box                     ERROR
-    #[(364,582),'down', 'fish shop'],# by the fish shop                ERROR
-    #[(481,591),'up', 'main shop'],# by the main shop                ERROR
-    [(5* 25, 26* 25),'down', 'bottom corner'],# by the bottom corner
-    [(1198,490),'down', 'dojo'],# by the dojo
-    [(625,576),'right', 'tree']# by the tree
+stop_spots = [  #format: [coords, direction]          #needs reworking
+    [(335.5,380),'up', 'bridge'],# on the bridge
+    [(116.5,337),'down', 'gate'],# under the gate
+    [(890.5,313),'down', 'bell tower'],# by the bell tower                 ERROR
+    [(287.5,613),'up', 'fish box'],# by the fish box                     ERROR
+    [(383.5,619),'up', 'fish shop'],# by the fish shop                ERROR
+    [(443.5,634),'up', 'main shop'],# by the main shop                ERROR
+    [(119.5,610),'left', 'bottom corner'],# by the bottom corner
+    [(1208.5,487),'down', 'dojo'],# by the dojo
+    [(638.5,616),'right', 'tree'],# by the tree
+    [(638.5,616),'up', 'sakura']# by the sakura
+
 ]
 
 def show_positions(screen, frame):
@@ -253,6 +210,7 @@ def show_positions(screen, frame):
         screen.blit(current_image, (item[0][0], item[0][1]))
 
 def update(screen, notebook_open, sprite_hitbox):
+    ...
     for character in villagers:
         if character.sprite_is_in_the_way(sprite_hitbox):
             character.is_tapping_foot = True
@@ -268,8 +226,8 @@ def update(screen, notebook_open, sprite_hitbox):
 
 #villager instantiations  (needs tidying up)
 Arthur = Villager('bell tower', 'sprite_idle_sheet','sprite_walking_sheet', (27,48), name='Arthur')
-Dean = Villager('dojo', 'sprite_idle_sheet', 'sprite_walking_sheet', (27, 48),name='Dean')
-James = Villager('tall palace', 'sprite_idle_sheet', 'sprite_walking_sheet', (27, 48),name='James')
+#Dean = Villager('dojo', 'sprite_idle_sheet', 'sprite_walking_sheet', (27, 48),name='Dean')
+#James = Villager('tall palace', 'sprite_idle_sheet', 'sprite_walking_sheet', (27, 48),name='James')
 #Rowan = Villager('tall house', 'sprite_idle_sheet','sprite_walking_sheet', (27,48),name='Rowan')
 #Villagerno5 = Villager('food shop', 'sprite_idle_sheet','sprite_walking_sheet', (27,48))
 #Villagerno6 = Villager('shop', 'sprite_idle_sheet','sprite_walking_sheet', (27,48))
