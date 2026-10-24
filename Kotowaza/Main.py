@@ -148,6 +148,8 @@ while True:
     ''''#shadow
     pygame.draw.ellipse(screen, (0, 0, 0), (Player.player_x + 13.5 - 10, Player.player_y + 40 - 2.5, 20, 5))'''
     route_mapping.display_nodes(screen)
+    print(NPCs.Arthur.route)
+    route_mapping.display_route(screen, NPCs.Arthur.route)
 
     #hitboxes
     if hitboxes.showing and not notebook_open:
