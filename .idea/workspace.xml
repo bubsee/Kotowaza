@@ -4,24 +4,26 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="19140e78-99f8-4d08-9e7d-5b0de6882ef8" name="Changes" comment="organised">
-      <change afterPath="$PROJECT_DIR$/Main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/NPCs.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Notebook.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Player.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Settings.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Text_popups.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/entries.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hitboxes.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/list_of_hitboxes.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/objects.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/route_mapping.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sprites.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/todo" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/village_objects.py" afterDir="false" />
+    <list default="true" id="19140e78-99f8-4d08-9e7d-5b0de6882ef8" name="Changes" comment="organised pt2">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NPCs.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Notebook.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Player.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Settings.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text_popups.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/entries.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hitboxes.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/list_of_hitboxes.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/map.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/objects.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/route_mapping.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sprites.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/todo" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/village_objects.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,6 +33,12 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "bubsee"
+  }
+}]]></component>
   <component name="GithubPullRequestsUISettings"><![CDATA[{
   "selectedUrlAndAccountId": {
     "url": "https://github.com/bubsee/Kotowaza",
@@ -47,6 +55,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Python.Main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
@@ -56,7 +65,8 @@
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm"
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
 }]]></component>
   <component name="SharedIndexes">
@@ -75,7 +85,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1790879327327</updated>
-      <workItem from="1793697281101" duration="333000" />
+      <workItem from="1793697281101" duration="1250000" />
     </task>
     <task id="LOCAL-00001" summary="organised">
       <option name="closed" value="true" />
@@ -85,7 +95,31 @@
       <option name="project" value="LOCAL" />
       <updated>1793697488493</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="organised pt2">
+      <option name="closed" value="true" />
+      <created>1793697630040</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1793697630040</updated>
+    </task>
+    <task id="LOCAL-00003" summary="organised pt2">
+      <option name="closed" value="true" />
+      <created>1793697650249</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1793697650249</updated>
+    </task>
+    <task id="LOCAL-00004" summary="organised pt2">
+      <option name="closed" value="true" />
+      <created>1793698106279</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1793698106279</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -93,6 +127,10 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="organised" />
-    <option name="LAST_COMMIT_MESSAGE" value="organised" />
+    <MESSAGE value="organised pt2" />
+    <option name="LAST_COMMIT_MESSAGE" value="organised pt2" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Kotowaza$Main.coverage" NAME="Main Coverage Results" MODIFIED="1793698136387" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
