@@ -97,5 +97,5 @@ def find_route(start:tuple,end:tuple):
                     open_nodes.append(neighbour)
 
 def display_route(screen,route:list):
-    for node in list:
+    for node in route:
         pygame.draw.circle(screen, (255, 0, 0), (node[0],node[1]), 12, 12)

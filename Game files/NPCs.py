@@ -23,8 +23,8 @@ class Villager:
         self.frame = 0    #pointer
         self.frame_counter = 0     #counter
         self.current_image = None
-        self.idle_sprite_sheet = pygame.image.load(f'img/sprites/{idle_spritesheet}.png')
-        self.walking_sprite_sheet = pygame.image.load(f'img/sprites/{walking_spritesheet}.png')
+        self.idle_sprite_sheet = pygame.image.load(f'../img/sprites/{idle_spritesheet}.png')
+        self.walking_sprite_sheet = pygame.image.load(f'../img/sprites/{walking_spritesheet}.png')
 
         #movement stuff
         self.start_building = start_building

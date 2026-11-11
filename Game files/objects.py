@@ -7,20 +7,20 @@ def load(directory:str, dimensions):
     return name
 
 def create(directory: str, dimensions:tuple):
-    thing = pygame.image.load(f'img/{directory}.png')
+    thing = pygame.image.load(f'../img/{directory}.png')
     thing = pygame.transform.scale(thing, dimensions)
     return thing
 
 
 #tiles
-grass_sheet = pygame.image.load('img/tiles/grass.png')
+grass_sheet = pygame.image.load('../img/tiles/grass.png')
 grass1_tile = grass_sheet.subsurface((0, 60, TILE_WIDTH, TILE_WIDTH))
 grass1_tile = pygame.transform.scale(grass1_tile, (TILE_WIDTH,TILE_WIDTH))
 grass2_tile = grass_sheet.subsurface((0, 0, TILE_WIDTH, TILE_WIDTH))
 grass2_tile = pygame.transform.scale(grass2_tile, (TILE_WIDTH,TILE_WIDTH))
-lake_tile = pygame.image.load('img/tiles/lake.png')
+lake_tile = pygame.image.load('../img/tiles/lake.png')
 lake_tile = pygame.transform.scale(lake_tile, (TILE_WIDTH,TILE_WIDTH))
-path_tile = pygame.image.load('img/tiles/cobble.png')
+path_tile = pygame.image.load('../img/tiles/cobble.png')
 path_tile = pygame.transform.scale(path_tile, (TILE_WIDTH, TILE_WIDTH))
 
 #---------------------------------BUILDINGS-------------------------------------
@@ -59,6 +59,6 @@ left_flag = create('details/flag',(20,60))
 right_flag = pygame.transform.flip(left_flag, True, False)
 
 #--------------icons-----------------
-icon = pygame.image.load('img/icons/red_fan.png')
-#fast_forward = pygame.image.load('img/icons/fast_forward.png')
-notebook_sheet = pygame.image.load('img/icons/notebook_sheet.png')
+icon = pygame.image.load('../img/icons/red_fan.png')
+#fast_forward = pygame.image.load('../img/icons/fast_forward.png')
+notebook_sheet = pygame.image.load('../img/icons/notebook_sheet.png')
