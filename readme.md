@@ -26,6 +26,9 @@ A handcrafted landscape brought to life through detailed pixel art, natural scen
 | Action | Input |
 |:---|:---|
 | Movement | `W` `A` `S` `D` / Arrow Keys |
+| Toggle hitboxes | `H` |
+| Toggle route mapping | `N` |
+| Pause Menu | `Tab` |
 | Exit | `ESC` |
 
 ## Gallery
