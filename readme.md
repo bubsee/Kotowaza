@@ -1,34 +1,50 @@
-# Kotowaza  |  ことわざ
+# ことわざ — KOTOWAZA
 
-**Kotowaza** is a charming pixel-art game inspired by Japanese proverbs (ことわざ, *kotowaza*). Explore a vibrant world, discover hidden paths, and immerse yourself in a relaxing, tile-based adventure.
-
-
-
-##Game Overview
-
-**Kotowaza** is a top-down exploration game where you wander through a lush landscape, uncovering secrets and enjoying tranquil scenery. The world is built from hand-crafted tiles, with randomized grass and winding paths, evoking the spirit of classic Japanese countryside.
-
-
-
-##Controls
-
-- **Move:** Arrow keys or WASD
-- **Exit:** ESC
-
-
-
-
-##Screenshots
-
-*Coming soon!*
-
-
-
-##Credits
-
-- Game Design & Programming: Bubsee
-- Art: VectorRaith
+*A quiet journey through a world inspired by Japanese proverbs.*
 
 ---
 
-*Enjoy your journey through Kotowaza!* 🌾
+## Overview
+
+**Kotowaza (ことわざ)** is a top-down, pixel-art exploration game inspired by the beauty, atmosphere and philosophy of rural Japan.
+
+Wander through a carefully crafted village, discover its inhabitants, explore winding paths and uncover the small details hidden throughout the world.
+
+Designed around a sense of tranquillity and discovery, Kotowaza invites you to slow down, explore at your own pace and enjoy the journey.
+
+## The World
+
+A handcrafted landscape brought to life through detailed pixel art, natural scenery and traditional Japanese influences.
+
+- **Exploration** — Discover the village and its surrounding landscape.
+- **Characters** — Meet villagers and experience their daily routines.
+- **Atmosphere** — Immerse yourself in a peaceful world of winding paths, greenery and seasonal scenery.
+- **Discovery** — Find hidden locations and uncover the stories behind the world.
+
+## Controls
+
+| Action | Input |
+|:---|:---|
+| Movement | `W` `A` `S` `D` / Arrow Keys |
+| Exit | `ESC` |
+
+## Gallery
+
+*Screenshots and gameplay footage coming soon.*
+
+## Credits
+
+| Contribution | Creator |
+|:---|:---|
+| Game Design & Programming | Bubsee |
+| Artwork | VectorRaith |
+
+---
+
+<div align="center">
+
+**ことわざ**
+
+*Take your time. Enjoy the journey.*
+
+</div>
