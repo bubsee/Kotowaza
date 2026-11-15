@@ -1,51 +1,53 @@
-# Kotowaza  |  ことわざ
+# KOTOWAZA
 
-🌱 **Kotowaza** is a charming pixel-art game inspired by Japanese proverbs (ことわざ, *kotowaza*). Explore a vibrant world, discover hidden paths, and immerse yourself in a relaxing, tile-based adventure.
-
----
-
-## 🎮 Game Overview
-
-**Kotowaza** is a top-down exploration game where you wander through a lush landscape, uncovering secrets and enjoying tranquil scenery. The world is built from hand-crafted tiles, with randomized grass and winding paths, evoking the spirit of classic Japanese countryside.
-
-**Features:**
-- Beautiful pixel-art tiles and objects (houses, shops, and more)
-- Randomized grass for a natural look
-- Smooth movement and responsive controls
-- Peaceful, meditative gameplay
+*A quiet journey through a world inspired by Japanese proverbs.*
 
 ---
 
-## 🕹️ Controls
+## Overview
 
-- **Move:** Arrow keys or WASD
-- **Exit:** ESC
+**Kotowaza (ことわざ)** is a top-down, pixel-art exploration game inspired by the beauty, atmosphere and philosophy of rural Japan.
+
+Wander through a carefully crafted village, discover its inhabitants, explore winding paths and uncover the small details hidden throughout the world.
+
+Designed around a sense of tranquillity and discovery, Kotowaza invites you to slow down, explore at your own pace and enjoy the journey.
+
+## The World
+
+A handcrafted landscape brought to life through detailed pixel art, natural scenery and traditional Japanese influences.
+
+- **Exploration** — Discover the village and its surrounding landscape.
+- **Characters** — Meet villagers and experience their daily routines.
+- **Atmosphere** — Immerse yourself in a peaceful world of winding paths, greenery and seasonal scenery.
+- **Discovery** — Find hidden locations and uncover the stories behind the world.
+
+## Controls
+
+| Action | Input |
+|:---|:---|
+| Movement | `W` `A` `S` `D` / Arrow Keys |
+| Toggle Route Finding | `N` |
+| Toggle Hitboxes | `H` |
+| Menu | `TAB` |
+| Exit | `ESC` |
+
+## Gallery
+
+*Screenshots and gameplay footage coming soon.*
+
+## Credits
+
+| Contribution | Creator |
+|:---|:---|
+| Game Design & Programming | Bubsee |
+| Artwork | VectorRaith |
 
 ---
 
-## 🌸 Visual Style
+<div align="center">
 
-Kotowaza uses a custom tileset to create a unique, atmospheric world. The environment is designed to be both nostalgic and calming, with subtle variations in grass and detailed Japanese-inspired buildings.
+**ことわざ**
 
----
+*Take your time. Enjoy the journey.*
 
-## ✨ Inspiration
-
-The game draws inspiration from Japanese proverbs, encouraging players to explore at their own pace and find meaning in the journey.
-
----
-
-## 📷 Screenshots
-
-*Coming soon!*
-
----
-
-## 🧑‍💻 Credits
-
-- Game Design & Programming: Bubsee
-- Art: [placeholder]
-
----
-
-*Enjoy your journey through Kotowaza!* 🌾
+</div>
