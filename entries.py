@@ -1,0 +1,18 @@
+building_entries = {
+    'my house': (838,567),
+    'main palace': (610,264),
+    'food shop': (337,576),
+    'shop': (469,573),
+    'tall palace': (124,234),
+    'bell tower': (885,295),
+    'dojo': (1162,485),
+    'tall house': (980,170),
+    'big house': (1078,138),
+    'square house':(1180,132)}
+
+def check_entry(player_x, player_y):
+    for building in building_entries:
+        if abs(player_x - building_entries[building][0]) < 10 and abs(player_y - building_entries[building][1]) < 10:
+            return building
+    return False
+
