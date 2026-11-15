@@ -1,4 +1,4 @@
-# ことわざ — KOTOWAZA
+# KOTOWAZA | ことわざ
 
 *A quiet journey through a world inspired by Japanese proverbs.*
 
