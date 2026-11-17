@@ -33,7 +33,7 @@ A handcrafted landscape brought to life through detailed pixel art, natural scen
 
 ## Gallery
 
-*Screenshots and gameplay footage coming soon.*
+<img src="kotowaza_screenshot.png" alt="Screenshot of Map" width="400" height="300">
 
 ## Credits
 
