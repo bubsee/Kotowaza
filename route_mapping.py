@@ -1,4 +1,5 @@
 import pygame
+import NPCs
 def coordinate_to_matrix(x,y):
     row = y//25
     column = x//25
@@ -67,6 +68,7 @@ def find_route(start:tuple,end:tuple):
     #print(f'snapped end: {end}')
 
     #A* algorithm
+    #A* algorithm
     came_from = {}
     open_nodes = [start_node]
     g_score = {start_node: 0}
@@ -109,11 +111,12 @@ def find_route(start:tuple,end:tuple):
                 if neighbour not in open_nodes:
                     open_nodes.append(neighbour)
 
-def display_route(screen,route:list):
+def display_route(screen,route:list, NPC_coords:tuple):
     for i in range(len(route)):
         pygame.draw.circle(screen, (255, 0, 0), route[i], 12, 12)
         if i < len(route)-1:
             pygame.draw.line(screen, (255, 0, 0), route[i], route[i+1], width=3)
+    pygame.draw.line(screen, (255, 0, 0), route[0],NPC_coords, width=3)
 
     font = pygame.font.SysFont(None, 24)
     for node in nodes:

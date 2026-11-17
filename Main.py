@@ -150,7 +150,7 @@ while True:
     if PATHFINDING_SHOWING:
         route_mapping.display_nodes(screen)
         #print(NPCs.Arthur.route)
-        route_mapping.display_route(screen, NPCs.Arthur.route)
+        route_mapping.display_route(screen, NPCs.Arthur.route, (NPCs.Arthur.x, NPCs.Arthur.y))
 
     #hitboxes
     if HITBOXES_SHOWING and not notebook_open:
