@@ -116,7 +116,8 @@ def display_route(screen,route:list, NPC_coords:tuple):
         pygame.draw.circle(screen, (255, 0, 0), route[i], 12, 12)
         if i < len(route)-1:
             pygame.draw.line(screen, (255, 0, 0), route[i], route[i+1], width=3)
-    pygame.draw.line(screen, (255, 0, 0), route[0],NPC_coords, width=3)
+    if route:
+        pygame.draw.line(screen, (255, 0, 0), route[0],NPC_coords, width=3)
 
     font = pygame.font.SysFont(None, 24)
     for node in nodes:
