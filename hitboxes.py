@@ -16,6 +16,7 @@ add(875,590,objects.statue)  #right statue
 add(265,575,objects.fish_box) #fish box
 add(80,200,objects.left_flag) #left flag
 add(174,200,objects.right_flag) #right flag
+add(591, 360,objects.pond) #pond
 
 
 def draw(screen):

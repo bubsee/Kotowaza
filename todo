@@ -1,6 +1,9 @@
 TODO:
-- rework villager route finding
-- remap villager wait points
-- implement house entry game loop
-- design house
-- add in lamp posts and more accessories (sakura blossom perhaps?)
+- fix villager facing direction when waiting
+- make villagers avoid each other
+- reskin villagers
+- decorate map (streetlights, sakura, shadows of villagers etc.)
+- camera zoom (togglable between pokemon style closer, and whole map)
+- interactions between villagers
+- building entry (with interiors that you can walk around in)
+- code in tasks to be completed

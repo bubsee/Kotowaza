@@ -46,7 +46,9 @@ while True:
                 pygame.quit()
                 sys.exit()
             elif event.key == pygame.K_h:
-                hitboxes.showing = not hitboxes.showing
+                HITBOXES_SHOWING = not HITBOXES_SHOWING
+            elif event.key == pygame.K_n:
+                PATHFINDING_SHOWING = not PATHFINDING_SHOWING
 
         elif event.type == pygame.QUIT:
             pygame.quit()
@@ -98,9 +100,6 @@ while True:
     map.display_floor(background_surface)
 
 
-
-    route_mapping.display_nodes(background_surface)
-
     '''for tile in NPCs.Arthur.route:
         pygame.draw.circle(screen, (255, 0, 0), tile, 5)'''  # debug route being followed by Villager: Arthur
 
@@ -147,12 +146,14 @@ while True:
 
     ''''#shadow
     pygame.draw.ellipse(screen, (0, 0, 0), (Player.player_x + 13.5 - 10, Player.player_y + 40 - 2.5, 20, 5))'''
-    route_mapping.display_nodes(screen)
-    print(NPCs.Arthur.route)
-    route_mapping.display_route(screen, NPCs.Arthur.route)
+
+    if PATHFINDING_SHOWING:
+        route_mapping.display_nodes(screen)
+        #print(NPCs.Arthur.route)
+        route_mapping.display_route(screen, NPCs.Arthur.route, (NPCs.Arthur.x, NPCs.Arthur.y))
 
     #hitboxes
-    if hitboxes.showing and not notebook_open:
+    if HITBOXES_SHOWING and not notebook_open:
         hitboxes.draw(screen)
         pygame.draw.rect(screen, (255, 0, 0), sprite_hitbox, 2)
 
