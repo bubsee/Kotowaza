@@ -35,11 +35,10 @@ class Villager:
 
 
         #print(map.grid[self.y // 25][self.x // 25])  #debugging start position
-        self.at_home = True
+        #self.at_home = True
         self.arrived = False
         self.is_tapping_foot = False
         self.wait_timer = 0
-        VILLAGER_WAIT_LENGTH = 600
 
         self.make_sheets()
         #print(f'{entries.building_entries[self.start_building]}\n{self.end_point[0]}')
@@ -66,7 +65,8 @@ class Villager:
             self.end_point = random.choice(stop_spots)
         stop_spots.remove(self.end_point)
 
-        self.route = route_mapping.find_route(self.start_building,self.end_point)   #NEW function that returns a list of nodes to travel to
+        self.route = route_mapping.find_route((self.x,self.y), self.end_point[0])   #NEW function that returns a list of nodes to travel to
+        #print(f'end point = {self.end_point}')
         self.arrived = False
 
 
@@ -86,51 +86,60 @@ class Villager:
 
     def walk_to_destination(self, screen, notebook_open):
 
-        '''if not notebook_open:
+        if not notebook_open:
             if self.is_tapping_foot:
                 self.wait_timer += 1
-                if self.wait_timer > VILLAGER_WAIT_LENGTH:
-                    self.wait_timer = None
+                if self.wait_timer >= VILLAGER_WAIT_LENGTH:
+                    self.wait_timer = 0
                     self.is_tapping_foot = False
 
             elif self.route != []:
-                target = self.route[-1]
-                relative_positon = target[0] - self.x, target[1] - self.y
+                #establish target as next node in route and define relative coordinates of target from current position
+                target = self.route[0]
+                relative_coordinates = target[0]-self.x , target[1]-self.y
 
-                # snap to node on path when close enough (may look weird)
-                if self.x > target[0] - VILLAGER_SPEED and self.x < target[0] + VILLAGER_SPEED and self.y > target[1] - VILLAGER_SPEED and self.y < target[1] + VILLAGER_SPEED:
-                    self.x = target[0]
-                    self.y = target[1]
-                    self.route.remove(self.route[-1])
+                #debugging block
+                '''print(f'route: {self.route}')
+                print(f'target coord: {target}')
+                print(f'relative coords: {relative_coordinates}')
+                print()'''
 
-                # adjust x coord
-                elif relative_positon[0] > 0:
-                    self.x += VILLAGER_SPEED
-                    self.direction = 'right'
-                elif relative_positon[0] < 0:
-                    self.x -= VILLAGER_SPEED
-                    self.direction = 'left'
+                #snap to node and remove from route when close enough
+                if relative_coordinates[0] **2 < VILLAGER_SPEED**2 and relative_coordinates[1] **2 < VILLAGER_SPEED**2:
+                    self.x,self.y = target
+                    self.route.remove(target)
 
-                # adjust y coord
-                if relative_positon[1] > 0:
-                    self.y += VILLAGER_SPEED
-                    self.direction = 'down'
-                elif relative_positon[1] < 0:
-                    self.y -= VILLAGER_SPEED
-                    self.direction = 'up'
+                #movement and direction update
+                else:
+                    if relative_coordinates[0] > 0:
+                        self.direction = 'right'
+                        self.x += VILLAGER_SPEED
+                    elif relative_coordinates[0] < 0:
+                        self.direction = 'left'
+                        self.x -= VILLAGER_SPEED
+                    if relative_coordinates[1] > 0:
+                        self.direction = 'down'
+                        self.y += VILLAGER_SPEED
+                    elif relative_coordinates[1] < 0:
+                        self.direction = 'up'
+                        self.y -= VILLAGER_SPEED
 
-            self.frame_counter = (self.frame_counter + 1) % (10 * 4)  # Adjust 15 for speed
-            if self.frame_counter % 10 == 0:
-               self.frame = (self.frame + 1) % 4
 
-        self.choose_image()
+                #work out the frame of animation
+                self.frame_counter = (self.frame_counter + 1) % (10 * 4)  # Adjust 15 for speed
+                if self.frame_counter % 10 == 0:
+                   self.frame = (self.frame + 1) % 4
 
-        #pygame.draw.rect(screen, (255, 255, 0), (self.x, self.y, 10, 10))       #print yellow rectangles instead of sprite images
-        screen.blit(self.current_image,(self.x - 13, self.y - 30))       #print sprite images
-        if self.route == []:
-            self.arrived = True
-            self.wait_timer = 0
-            self.is_tapping_foot = True'''
+            #decide on which animation image to show
+            self.choose_image()
+
+            #draw sprite onto screen
+            screen.blit(self.current_image,(self.x - 13, self.y - 30))       #print sprite images
+
+            if self.route == []:
+                self.arrived = True
+                self.wait_timer = 0
+                self.is_tapping_foot = True
 
     def choose_image(self):
         if self.is_tapping_foot:        #if idle
@@ -192,7 +201,6 @@ stop_spots = [  #format: [coords, direction]          #needs reworking
     [(119.5,610),'left', 'bottom corner'],# by the bottom corner
     [(1208.5,487),'down', 'dojo'],# by the dojo
     [(638.5,616),'right', 'tree'],# by the tree
-    [(638.5,616),'up', 'sakura']# by the sakura
 
 ]
 
@@ -214,8 +222,8 @@ def update(screen, notebook_open, sprite_hitbox):
     for character in villagers:
         if character.sprite_is_in_the_way(sprite_hitbox):
             character.is_tapping_foot = True
-        else:
-            character.is_tapping_foot = False
+        #else:
+            #character.is_tapping_foot = False
 
         if character.route == []:
             character.find_route()
@@ -242,16 +250,3 @@ def update_villager_hitboxes(screen):
         list_of_hitboxes.all_hitboxes.remove(NPC.hitbox)
         NPC.redefine_hitbox()
         list_of_hitboxes.all_hitboxes.append(NPC.hitbox)
-
-
-
-
-
-
-
-
-
-
-
-
-
