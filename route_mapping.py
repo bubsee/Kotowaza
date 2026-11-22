@@ -1,5 +1,4 @@
 import pygame
-import NPCs
 def coordinate_to_matrix(x,y):
     row = y//25
     column = x//25
@@ -40,6 +39,11 @@ nodes = {
     '5': [(480, 640), ('4','H')]
 }
 
+# Roads can be traversed from either end, including links listed once.
+connections = {node: set(neighbours) for node, (_, neighbours) in nodes.items()}
+for node, (_, neighbours) in nodes.items():
+    for neighbour in neighbours:
+        connections[neighbour].add(node)
 
 
 def display_nodes(screen):
@@ -118,7 +122,7 @@ def find_route(start:tuple,end:tuple):
         visited.append(next_visited)
 
         #add its neighbours to open
-        for neighbour in nodes[next_visited][1]:
+        for neighbour in sorted(connections[next_visited]):
             if neighbour in visited:
                 continue
             tentative_g_score = g_score[next_visited] + (((nodes[next_visited][0][0]-nodes[neighbour][0][0])**2 + (nodes[next_visited][0][1]-nodes[neighbour][0][1])**2)**(1/2))
