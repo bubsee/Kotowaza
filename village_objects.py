@@ -130,7 +130,7 @@ object_records = [ #format: image, coords, 1=over or 0=under
     # [objects.lantern_side, (610,523), 1],
     [objects.lantern_left, (582, 497), 1],
     #[objects.lantern_right, (632, 560), 1],
-    [objects.lantern_right_left_half, (632+35/2, 560), 1],
+    [objects.lantern_right_left_half, (632+35/2, 560), 0],
     [objects.lantern_right_right_half, (632, 560), 1],
     [objects.lantern_left, (82, 543), 1],
     [objects.lantern_right, (157, 450), 1],
