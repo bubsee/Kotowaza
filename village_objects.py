@@ -9,8 +9,8 @@ def show_everything_over_sprite(screen):
         if item[2] == 1:
             screen.blit(item[0], item[1])
 
-object_records = [ #format: image, coords, over or under
-    #in front
+object_records = [ #format: image, coords, 1=over or 0=under
+
     [objects.gate, (72, 280), 1], # gate
     [objects.bottom_bridge_railing, (260, 391), 1],
     [objects.side_hedge, (985, 195), 1],
@@ -21,7 +21,7 @@ object_records = [ #format: image, coords, over or under
     [objects.single_hedge, (1024, 135), 0],
     [objects.single_hedge, (1134, 135), 0],
 
-    #behind
+
 # ---------------BUILDINGS------------------
     [objects.big_house, (750, 435), 0],
     [objects.main_palace, (474, 0), 0],
@@ -116,7 +116,7 @@ object_records = [ #format: image, coords, over or under
     [objects.single_hedge, (575, 475), 0],
     [objects.single_hedge, (525, 425), 0],
     [objects.big_tree, (500, 505), 0],  # big trees
-    [objects.big_tree, (645, 530), 0],
+    [objects.big_tree, (660, 530), 0],
     # [objects.big_tree, (949, 530), 0], #-
     [objects.big_tree, (1132, 250), 0],
     [objects.big_tree, (263, 150), 0],
@@ -125,4 +125,9 @@ object_records = [ #format: image, coords, over or under
     [objects.right_flag, (174, 200), 0],
     [objects.statue, (804, 590), 0],
     [objects.statue, (875, 590), 0],
+    # [objects.lantern_side, (610,523), 1],
+    [objects.lantern_left, (585, 495), 1],
+    [objects.lantern_right, (635, 560), 1],
+    [objects.lantern_left, (85, 543), 1],
+    [objects.lantern_right, (160, 450), 1],
 ]
