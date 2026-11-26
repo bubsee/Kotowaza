@@ -115,7 +115,9 @@ object_records = [ #format: image, coords, 1=over or 0=under
     [objects.single_hedge, (550, 450), 0],
     [objects.single_hedge, (575, 475), 0],
     [objects.single_hedge, (525, 425), 0],
-    [objects.big_tree, (500, 505), 0],  # big trees
+    #[objects.big_tree, (500, 505), 0],
+    # big trees
+    [objects.big_tree_bottom_half, (500, 550), 0],
     [objects.big_tree, (660, 530), 0],
     # [objects.big_tree, (949, 530), 0], #-
     [objects.big_tree, (1132, 250), 0],
@@ -126,8 +128,11 @@ object_records = [ #format: image, coords, 1=over or 0=under
     [objects.statue, (804, 590), 0],
     [objects.statue, (875, 590), 0],
     # [objects.lantern_side, (610,523), 1],
-    [objects.lantern_left, (585, 495), 1],
-    [objects.lantern_right, (635, 560), 1],
-    [objects.lantern_left, (85, 543), 1],
-    [objects.lantern_right, (160, 450), 1],
+    [objects.lantern_left, (582, 497), 1],
+    #[objects.lantern_right, (632, 560), 1],
+    [objects.lantern_right_left_half, (632+35/2, 560), 1],
+    [objects.lantern_right_right_half, (632, 560), 1],
+    [objects.lantern_left, (82, 543), 1],
+    [objects.lantern_right, (157, 450), 1],
+    [objects.big_tree_top_half, (500, 505), 1],
 ]

@@ -125,10 +125,10 @@ class Villager:
                         self.y -= VILLAGER_SPEED
 
 
-                #work out the frame of animation
-                self.frame_counter = (self.frame_counter + 1) % (10 * 4)  # Adjust 15 for speed
-                if self.frame_counter % 10 == 0:
-                   self.frame = (self.frame + 1) % 4
+            #work out the frame of animation
+            self.frame_counter = (self.frame_counter + 1) % (10 * 4)  # Adjust 15 for speed
+            if self.frame_counter % 10 == 0:
+                self.frame = (self.frame + 1) % 4
 
             #decide on which animation image to show
             self.choose_image()
@@ -241,8 +241,6 @@ Arthur = Villager('bell tower', 'sprite_idle_sheet','sprite_walking_sheet', (27,
 #Villagerno6 = Villager('shop', 'sprite_idle_sheet','sprite_walking_sheet', (27,48))
 #Lemonie = Villager('big house', 'sprite_idle_sheet','sprite_walking_sheet', (27,48),name='Lemonie')
 #Olex = Villager('square house', 'sprite_idle_sheet','sprite_walking_sheet', (27,48),name='Olex')
-
-
 
 
 def update_villager_hitboxes(screen):
